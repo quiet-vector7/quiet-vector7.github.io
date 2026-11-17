@@ -1,0 +1,996 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>r星视频-游戏影像与实机演示解析站</title>
+<meta name="description" content="r星视频专注收录《GTA》系列与《荒野大镖客》的实机演示、预告片逐帧解析与玩家二创作品。提供镜头构图拆解、版本差异对照与观看体验指南，并整理社区口碑与更新动态，方便玩家在碎片时间里看懂每一段影像背后的制作细节与叙事意图。">
+<meta name="keywords" content="r星视频">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23111827'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='%23f59e0b' stroke-width='4'/%3E%3Cpath d='M27 22 L45 32 L27 42 Z' fill='%23f59e0b'/%3E%3C/svg%3E">
+<style>
+:root{
+--ink:#14161c;
+--ink-soft:#3c4250;
+--muted:#6b7280;
+--line:#e3e5ea;
+--bg:#f6f5f2;
+--panel:#ffffff;
+--brand:#f59e0b;
+--brand-deep:#b45309;
+--accent:#1e3a5f;
+--accent-soft:#e8eef6;
+--radius:14px;
+--radius-sm:8px;
+--shadow:0 1px 2px rgba(20,22,28,.05),0 8px 24px -12px rgba(20,22,28,.18);
+--space:20px;
+--font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;
+--anchor-offset:118px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--anchor-offset);}
+body{
+margin:0;font-family:var(--font);background:var(--bg);color:var(--ink);
+line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+outline:3px solid var(--brand);outline-offset:2px;border-radius:4px;
+}
+h1,h2,h3,h4{margin:0;line-height:1.3;font-weight:700;letter-spacing:.01em;}
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px;padding-left:1.3em;}
+li{margin-bottom:6px;}
+.wrap{width:min(1180px,calc(100% - 40px));margin:0 auto;}
+.topbar{
+background:var(--ink);color:#e9e6df;font-size:13.5px;
+}
+.topbar .wrap{display:flex;align-items:center;gap:12px;min-height:40px;flex-wrap:wrap;padding:6px 0;}
+.topbar .badge{
+background:var(--brand);color:#241a05;font-weight:700;
+padding:1px 8px;border-radius:999px;font-size:12px;letter-spacing:.04em;
+}
+.topbar a{color:#ffd48a;text-decoration:underline;text-underline-offset:3px;}
+.site-head{
+position:sticky;top:40px;z-index:60;background:rgba(255,255,255,.94);
+backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.topbar{position:sticky;top:0;z-index:70;}
+.site-head .wrap{display:flex;align-items:center;gap:18px;min-height:68px;}
+.brand{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+.brand-mark{width:40px;height:40px;flex:0 0 auto;}
+.brand-text{font-size:21px;font-weight:800;letter-spacing:.02em;color:var(--ink);}
+.brand-text span{color:var(--brand-deep);}
+.main-nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:8px;}
+.main-nav a{
+padding:7px 11px;border-radius:999px;font-size:14.5px;color:var(--ink-soft);
+transition:background .18s,color .18s;
+}
+.main-nav a:hover{background:var(--accent-soft);color:var(--accent);}
+.head-tools{display:flex;align-items:center;gap:10px;margin-left:auto;}
+.search-box{position:relative;display:flex;align-items:center;}
+.search-box input{
+width:172px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;
+font-family:inherit;font-size:14px;background:#fff;transition:width .2s,border-color .2s;
+}
+.search-box input:focus{width:214px;border-color:var(--brand);outline:none;}
+.search-result{
+position:absolute;top:calc(100% + 8px);right:0;width:300px;max-height:320px;overflow:auto;
+background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);
+box-shadow:var(--shadow);padding:6px;display:none;z-index:80;
+}
+.search-result.open{display:block;}
+.search-result .sr-item{display:block;padding:8px 10px;border-radius:6px;font-size:13.5px;}
+.search-result .sr-item:hover{background:var(--accent-soft);}
+.search-result .sr-item small{display:block;color:var(--muted);font-size:12px;}
+.search-result .sr-empty{padding:12px;color:var(--muted);font-size:13.5px;}
+.menu-btn{
+display:none;border:1px solid var(--line);background:#fff;border-radius:10px;
+width:42px;height:42px;align-items:center;justify-content:center;cursor:pointer;
+}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);position:relative;}
+.menu-btn span::before,.menu-btn span::after{
+content:"";position:absolute;left:0;width:18px;height:2px;background:var(--ink);
+}
+.menu-btn span::before{top:-6px;}
+.menu-btn span::after{top:6px;}
+
+/* hero */
+.hero{
+background:
+radial-gradient(1200px 420px at 88% -10%,rgba(245,158,11,.18),transparent 60%),
+linear-gradient(180deg,#14161c 0%,#1d2333 100%);
+color:#f2efe9;overflow:hidden;position:relative;
+}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:center;padding:58px 0 64px;}
+.hero-tag{
+display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.12em;
+color:#ffcf7d;text-transform:uppercase;margin-bottom:16px;
+}
+.hero-tag::before{content:"";width:26px;height:2px;background:var(--brand);border-radius:2px;}
+.hero h1{font-size:clamp(30px,4.4vw,46px);letter-spacing:.03em;margin-bottom:16px;}
+.hero p.lede{color:#c9c6be;font-size:16.5px;max-width:52ch;margin-bottom:24px;}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px;}
+.btn{
+display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+font-size:15px;font-weight:600;border:1px solid transparent;transition:transform .18s,background .18s;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-primary{background:var(--brand);color:#20180a;}
+.btn-ghost{border-color:rgba(255,255,255,.28);color:#f2efe9;}
+.btn-ghost:hover{background:rgba(255,255,255,.08);}
+.hero-stats{display:flex;gap:26px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;}
+.hero-stats div{font-size:13px;color:#a9a6a0;}
+.hero-stats strong{display:block;font-size:22px;color:#fff;font-weight:800;letter-spacing:.02em;}
+.hero-visual{position:relative;}
+.hero-visual svg{width:100%;height:auto;display:block;filter:drop-shadow(0 24px 48px rgba(0,0,0,.45));}
+
+/* layout */
+.main-grid{
+display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:34px;
+padding:44px 0 20px;align-items:start;
+}
+.content-col{min-width:0;display:flex;flex-direction:column;gap:38px;}
+.side-col{position:sticky;top:var(--anchor-offset);display:flex;flex-direction:column;gap:20px;min-width:0;}
+
+section.block{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 28px;box-shadow:var(--shadow);}
+.block-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+.block-head h2{font-size:22px;letter-spacing:.02em;position:relative;padding-left:14px;}
+.block-head h2::before{
+content:"";position:absolute;left:0;top:.28em;width:5px;height:1.05em;border-radius:3px;
+background:linear-gradient(180deg,var(--brand),var(--brand-deep));
+}
+.block-head .more{font-size:13.5px;color:var(--brand-deep);font-weight:600;white-space:nowrap;}
+.section-sub{color:var(--muted);font-size:14px;margin:-8px 0 18px;}
+
+/* overview */
+.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:16px;}
+.ov-card{border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;background:#fbfaf7;}
+.ov-card h3{font-size:15.5px;margin-bottom:6px;color:var(--accent);}
+.ov-card p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+.ov-note{font-size:14px;color:var(--ink-soft);background:var(--accent-soft);border-radius:var(--radius-sm);padding:12px 16px;margin:0;}
+
+/* featured cards */
+.feature-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:18px;}
+.feature-main{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:#fbfaf7;display:flex;flex-direction:column;}
+.feature-main img{width:100%;height:196px;object-fit:cover;}
+.feature-body{padding:16px 18px 18px;}
+.kicker{font-size:12px;letter-spacing:.1em;color:var(--brand-deep);font-weight:700;margin-bottom:8px;}
+.feature-main h3{font-size:19px;margin-bottom:8px;}
+.feature-main p{font-size:14px;color:var(--ink-soft);margin-bottom:10px;}
+.meta{font-size:12.5px;color:var(--muted);}
+.feature-side{display:flex;flex-direction:column;gap:12px;}
+.side-item{border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;background:#fff;transition:transform .18s,border-color .18s;}
+.side-item:hover{transform:translateY(-2px);border-color:#d5d8de;}
+.side-item h3{font-size:15px;margin-bottom:4px;}
+.side-item p{font-size:13px;color:var(--ink-soft);margin:0 0 6px;}
+
+/* timeline / latest */
+.timeline{list-style:none;padding:0;margin:0;position:relative;}
+.timeline::before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--line);}
+.timeline li{position:relative;padding-left:28px;margin-bottom:16px;}
+.timeline li::before{
+content:"";position:absolute;left:1px;top:6px;width:14px;height:14px;border-radius:50%;
+background:#fff;border:3px solid var(--brand);
+}
+.timeline time{font-size:12.5px;color:var(--brand-deep);font-weight:700;letter-spacing:.02em;}
+.timeline h3{font-size:15.5px;margin:2px 0 3px;}
+.timeline p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+
+/* channels */
+.channel-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.channel-grid a{
+display:flex;flex-direction:column;gap:2px;border:1px solid var(--line);border-radius:var(--radius-sm);
+padding:12px 13px;background:#fbfaf7;font-size:14px;font-weight:600;transition:transform .18s,border-color .18s,background .18s;
+}
+.channel-grid a:hover{transform:translateY(-2px);border-color:var(--brand);background:#fff8ec;}
+.channel-grid a small{font-size:12px;color:var(--muted);font-weight:400;}
+
+/* deep analysis */
+.deep{display:grid;grid-template-columns:minmax(0,1fr);gap:0;}
+.deep h3{font-size:17.5px;margin:22px 0 10px;color:var(--accent);}
+.deep h3:first-of-type{margin-top:4px;}
+.deep p{font-size:15px;color:var(--ink-soft);}
+.pullquote{
+border-left:4px solid var(--brand);background:#fffaf0;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+padding:14px 18px;margin:20px 0;font-size:15.5px;color:#3a3225;
+}
+.compare-table{width:100%;border-collapse:collapse;margin:14px 0 18px;font-size:14px;}
+.compare-table th,.compare-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top;}
+.compare-table th{background:#f3f2ee;font-weight:700;color:var(--accent);}
+.checklist{list-style:none;padding:0;margin:0 0 16px;}
+.checklist li{position:relative;padding-left:26px;font-size:14.5px;color:var(--ink-soft);margin-bottom:8px;}
+.checklist li::before{content:"✓";position:absolute;left:0;top:0;color:var(--brand-deep);font-weight:800;}
+
+/* guide steps */
+.steps{list-style:none;padding:0;margin:0;counter-reset:step;display:grid;gap:12px;}
+.steps li{
+counter-increment:step;position:relative;padding:14px 16px 14px 56px;
+border:1px solid var(--line);border-radius:var(--radius-sm);background:#fbfaf7;font-size:14.5px;color:var(--ink-soft);
+}
+.steps li::before{
+content:counter(step);position:absolute;left:14px;top:13px;width:28px;height:28px;border-radius:8px;
+background:var(--accent);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.steps li strong{color:var(--ink);}
+
+/* faq */
+details.faq-item{border:1px solid var(--line);border-radius:var(--radius-sm);background:#fbfaf7;margin-bottom:10px;overflow:hidden;}
+details.faq-item summary{
+cursor:pointer;padding:13px 16px;font-weight:600;font-size:15px;list-style:none;
+display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+details.faq-item summary::-webkit-details-marker{display:none;}
+details.faq-item summary::after{content:"+";font-size:18px;color:var(--brand-deep);font-weight:700;transition:transform .18s;}
+details.faq-item[open] summary::after{content:"–";}
+details.faq-item .faq-body{padding:0 16px 15px;font-size:14px;color:var(--ink-soft);}
+details.faq-item .faq-body p:last-child{margin-bottom:0;}
+
+/* comments */
+.comment-list{list-style:none;padding:0;margin:0;display:grid;gap:12px;}
+.comment-list li{border:1px solid var(--line);border-radius:var(--radius-sm);padding:13px 15px;background:#fff;}
+.comment-head{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:5px;}
+.comment-head b{color:var(--ink);font-size:13.5px;}
+.avatar{
+width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
+display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex:0 0 auto;
+}
+.comment-list p{font-size:14px;color:var(--ink-soft);margin:0;}
+.comment-list p em{font-style:normal;background:#fff3d6;padding:0 2px;border-radius:3px;}
+
+/* news */
+.news-list{list-style:none;padding:0;margin:0;display:grid;gap:10px;}
+.news-list li{
+display:grid;grid-template-columns:88px minmax(0,1fr);gap:14px;align-items:start;
+padding:11px 0;border-bottom:1px dashed var(--line);
+}
+.news-list li:last-child{border-bottom:none;}
+.news-list time{font-size:12.5px;color:var(--muted);}
+.news-list h3{font-size:15px;margin-bottom:2px;}
+.news-list p{font-size:13.5px;color:var(--ink-soft);margin:0;}
+
+/* tags */
+.tag-cloud{display:flex;flex-wrap:wrap;gap:8px;}
+.tag-cloud a{
+display:inline-block;padding:7px 13px;border-radius:999px;font-size:13.5px;
+background:#f1f0ec;color:var(--ink-soft);border:1px solid transparent;transition:background .18s,color .18s;
+}
+.tag-cloud a:hover{background:#fff3d6;color:var(--brand-deep);border-color:#f0d8a0;}
+
+/* ranking */
+.rank-list{list-style:none;padding:0;margin:0;counter-reset:rank;}
+.rank-list li{
+counter-increment:rank;display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:12px;align-items:center;
+padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px;
+}
+.rank-list li:last-child{border-bottom:none;}
+.rank-list li::before{
+content:counter(rank);font-weight:800;font-size:16px;color:var(--brand-deep);
+width:30px;height:30px;border-radius:8px;background:#fff3d6;display:flex;align-items:center;justify-content:center;
+}
+.rank-list li span{color:var(--muted);font-size:13px;}
+
+/* sidebar */
+.side-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);}
+.side-card h2{font-size:16px;margin-bottom:12px;padding-left:11px;position:relative;}
+.side-card h2::before{content:"";position:absolute;left:0;top:.2em;width:4px;height:1em;border-radius:2px;background:var(--brand);}
+.side-nav{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:2px;}
+.side-nav a{
+display:block;padding:7px 10px;border-radius:7px;font-size:14px;color:var(--ink-soft);
+border-left:3px solid transparent;transition:background .18s,color .18s,border-color .18s;
+}
+.side-nav a:hover{background:#f4f3ef;}
+.side-nav a.active{background:#fff3d6;color:var(--brand-deep);border-left-color:var(--brand);font-weight:700;}
+.side-note{font-size:13px;color:var(--muted);margin:0;}
+.side-card .tag-cloud a{font-size:12.5px;padding:6px 11px;}
+.side-list{list-style:none;padding:0;margin:0;display:grid;gap:9px;font-size:13.5px;}
+.side-list li{padding-bottom:9px;border-bottom:1px dashed var(--line);}
+.side-list li:last-child{border-bottom:none;padding-bottom:0;}
+.side-list a{color:var(--ink-soft);}
+.side-list a:hover{color:var(--brand-deep);}
+
+/* footer */
+.site-footer{background:#14161c;color:#b9b6ae;margin-top:46px;padding:44px 0 26px;font-size:14px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:30px;}
+.footer-brand .brand-text{color:#fff;font-size:20px;margin-bottom:10px;}
+.footer-brand p{color:#9c9991;font-size:13.5px;margin:0 0 8px;}
+.footer-col h2{font-size:14px;color:#e9e6df;margin-bottom:12px;letter-spacing:.04em;}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:7px;}
+.footer-col a{color:#a8a59d;font-size:13.5px;}
+.footer-col a:hover{color:#ffd48a;}
+.footer-bottom{border-top:1px solid #2a2d36;padding-top:18px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px;color:#87847d;}
+
+/* back to top */
+#toTop{
+position:fixed;right:18px;bottom:18px;z-index:90;width:44px;height:44px;border-radius:12px;
+background:var(--accent);color:#fff;border:none;cursor:pointer;font-size:18px;
+display:none;align-items:center;justify-content:center;box-shadow:var(--shadow);
+}
+#toTop.show{display:flex;}
+#toTop:hover{background:#2b4f7c;}
+
+@media (max-width:1024px){
+.main-grid{grid-template-columns:minmax(0,1fr);}
+.side-col{position:static;order:2;}
+.hero .wrap{grid-template-columns:minmax(0,1fr);gap:30px;padding:44px 0 50px;}
+.hero-visual{max-width:460px;}
+.feature-grid{grid-template-columns:minmax(0,1fr);}
+.channel-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+.footer-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:760px){
+.main-nav{
+display:none;position:absolute;left:0;right:0;top:100%;background:#fff;
+flex-direction:column;padding:10px 20px 16px;border-bottom:1px solid var(--line);
+box-shadow:var(--shadow);gap:2px;
+}
+.main-nav.open{display:flex;}
+.main-nav a{padding:10px 8px;border-radius:8px;}
+.menu-btn{display:flex;}
+.search-box input{width:120px;}
+.search-box input:focus{width:150px;}
+.site-head .wrap{min-height:60px;gap:10px;}
+.overview-grid{grid-template-columns:1fr;}
+.channel-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+.footer-grid{grid-template-columns:1fr;}
+.news-list li{grid-template-columns:minmax(0,1fr);gap:3px;}
+section.block{padding:20px 17px 22px;}
+.block-head h2{font-size:19px;}
+.hero-stats{gap:18px;}
+}
+@media (max-width:400px){
+.wrap{width:calc(100% - 26px);}
+.search-box{display:none;}
+}
+@media (prefers-reduced-motion:reduce){
+html{scroll-behavior:auto;}
+*{transition:none!important;animation:none!important;}
+.btn:hover,.side-item:hover,.channel-grid a:hover{transform:none;}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="badge">更新</span>
+    <span>r星视频 镜像归档 2026-11-06 新增《GTA VI》第三支预告逐帧标注 47 处，窗口锚点已同步。</span>
+    <a href="/#latest">查看更新清单</a>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/#top" aria-label="r星视频首页">
+      <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#14161c"/>
+        <circle cx="32" cy="32" r="17" fill="none" stroke="#f59e0b" stroke-width="4"/>
+        <path d="M27 22 L45 32 L27 42 Z" fill="#f59e0b"/>
+        <circle cx="32" cy="32" r="4" fill="#f6f5f2"/>
+      </svg>
+      <span class="brand-text">r星<span>视频</span></span>
+    </a>
+    <nav class="main-nav" id="mainNav" aria-label="主题频道导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#featured">精选推荐</a>
+      <a href="/#latest">最新更新</a>
+      <a href="/#channels">频道分类</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问题</a>
+      <a href="/#comments">玩家评论</a>
+      <a href="/#related">相关推荐</a>
+    </nav>
+    <div class="head-tools">
+      <div class="search-box">
+        <input type="search" id="searchInput" placeholder="搜索条目…" aria-label="站内搜索" autocomplete="off">
+        <div class="search-result" id="searchResult" role="listbox" aria-label="搜索结果"></div>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav" aria-label="打开导航菜单"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="hero-tag">Rockstar 影像观察 · 第 6 卷</span>
+        <h1 id="heroTitle">r星视频</h1>
+        <p class="lede">把《GTA VI》的第三支预告、《荒野大镖客：救赎 2》的过场长镜头和老玩家二创剪在一起看。镜头怎么摆、光照怎么打、信息留在哪一帧，逐段标给你。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/#deep">读逐帧解析</a>
+          <a class="btn btn-ghost" href="/#latest">看本周新增</a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>1,284</strong>条已标注影像</div>
+          <div><strong>47</strong>处预告片锚点</div>
+          <div><strong>9</strong>个影像频道</div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 520 380" role="img" aria-label="胶片放映机与时间轴示意构图">
+          <defs>
+            <linearGradient id="filmG" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f59e0b"/>
+              <stop offset="1" stop-color="#b45309"/>
+            </linearGradient>
+            <linearGradient id="screenG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#233047"/>
+              <stop offset="1" stop-color="#14161c"/>
+            </linearGradient>
+          </defs>
+          <rect x="30" y="46" width="330" height="196" rx="12" fill="url(#screenG)" stroke="#3b465e" stroke-width="2"/>
+          <path d="M176 108 L244 144 L176 180 Z" fill="url(#filmG)" opacity="0.95"/>
+          <rect x="30" y="262" width="330" height="34" rx="8" fill="#1b1f2a" stroke="#333d51"/>
+          <g fill="#f59e0b">
+            <rect x="46" y="274" width="26" height="10" rx="3"/>
+            <rect x="88" y="274" width="42" height="10" rx="3" opacity="0.7"/>
+            <rect x="146" y="274" width="18" height="10" rx="3" opacity="0.9"/>
+            <rect x="180" y="274" width="60" height="10" rx="3" opacity="0.55"/>
+            <rect x="256" y="274" width="34" height="10" rx="3" opacity="0.8"/>
+          </g>
+          <circle cx="380" cy="86" r="34" fill="none" stroke="#3b465e" stroke-width="8"/>
+          <circle cx="380" cy="86" r="30" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 8"/>
+          <rect x="392" y="150" width="88" height="132" rx="10" fill="#1b1f2a" stroke="#3b465e" stroke-width="2"/>
+          <rect x="404" y="164" width="64" height="16" rx="4" fill="#2a3346"/>
+          <rect x="404" y="190" width="46" height="8" rx="3" fill="#4c5a75"/>
+          <rect x="404" y="206" width="58" height="8" rx="3" fill="#4c5a75"/>
+          <rect x="404" y="232" width="64" height="30" rx="6" fill="url(#filmG)" opacity="0.86"/>
+          <path d="M30 320 L460 320" stroke="#333d51" stroke-width="2" stroke-dasharray="4 8"/>
+          <g fill="#f59e0b">
+            <circle cx="96" cy="320" r="5"/>
+            <circle cx="214" cy="320" r="5" opacity="0.6"/>
+            <circle cx="330" cy="320" r="5" opacity="0.8"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap main-grid">
+    <div class="content-col">
+
+      <section class="block" id="overview" aria-labelledby="overviewTitle">
+        <div class="block-head">
+          <h2 id="overviewTitle">领域概览：影像解析在看什么</h2>
+          <a class="more" href="/#deep">进入解析</a>
+        </div>
+        <div class="overview-grid">
+          <div class="ov-card">
+            <h3>实机演示片段</h3>
+            <p>聚焦《GTA VI》2026 年 10 月 30 日放出的 4 分 12 秒实机，统计室内外镜头切换 63 次。</p>
+          </div>
+          <div class="ov-card">
+            <h3>过场长镜头</h3>
+            <p>《荒野大镖客：救赎 2》圣丹尼斯街景一段 1 分 48 秒不剪，机位三次横移。</p>
+          </div>
+          <div class="ov-card">
+            <h3>玩家二创剪辑</h3>
+            <p>以车辆追逐、雨夜反光为素材的重剪，社区周榜前十平均时长 2 分 05 秒。</p>
+          </div>
+          <div class="ov-card">
+            <h3>预告片逐帧</h3>
+            <p>第三支预告 2 分 31 秒、47 处可标注锚点，含 12 处转场与 9 处文字情报。</p>
+          </div>
+          <div class="ov-card">
+            <h3>版本差异</h3>
+            <p>同一场景主机 30 帧与 60 帧模式对比，雨天水面反射精度差约一档。</p>
+          </div>
+          <div class="ov-card">
+            <h3>画面考古</h3>
+            <p>系列前作片头配色、字体与分镜套路，在 2008、2013、2018 三作间可对照。</p>
+          </div>
+        </div>
+        <p class="ov-note">影像的看点不在“画面好看”，而在镜头给的信息量：哪一帧交代了地点、人物关系或时间跳跃。看懂这层，二创与逐帧才有意义。</p>
+      </section>
+
+      <section class="block" id="featured" aria-labelledby="featuredTitle">
+        <div class="block-head">
+          <h2 id="featuredTitle">精选内容推荐</h2>
+          <a class="more" href="/#latest">全部内容</a>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-main">
+            <img src="https://picsum.photos/seed/rstarvi-trailer3/720/400" width="720" height="400" loading="lazy" alt="GTA VI 第三支预告中雷奥尼达海岸公路的黄昏镜头截图">
+            <div class="feature-body">
+              <div class="kicker">逐帧解析 · 47 处锚点</div>
+              <h3>第三支预告的 12 处转场，为什么有 4 处藏在车灯里</h3>
+              <p>用时间码逐段标注：00:41 车灯扫过换景、01:12 雨刷节奏切镜、02:03 玻璃反射转场，以及 2 分 31 秒里唯一一次黑场。</p>
+              <span class="meta">2026-11-06 · 解析字数 3,200</span>
+            </div>
+          </article>
+          <div class="feature-side">
+            <a class="side-item" href="/#deep">
+              <h3>荒漠骑行的运镜为什么慢</h3>
+              <p>《荒野大镖客：救赎 2》开篇雪地段落，镜头速度与载入遮罩的配合。</p>
+              <span class="meta">2026-11-04</span>
+            </a>
+            <a class="side-item" href="/#guide">
+              <h3>手机上看预告片的三个盲区</h3>
+              <p>竖屏裁切、码率带宽、字幕遮挡，逐项给出对照观看法。</p>
+              <span class="meta">2026-11-02</span>
+            </a>
+            <a class="side-item" href="/#channels">
+              <h3>二创剪辑周榜前十的素材来源</h3>
+              <p>九条用到雨夜路面反光，平均剪辑点间隔 3.4 秒。</p>
+              <span class="meta">2026-10-31</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" id="latest" aria-labelledby="latestTitle">
+        <div class="block-head">
+          <h2 id="latestTitle">最新更新</h2>
+          <span class="more">按时间倒序</span>
+        </div>
+        <ul class="timeline">
+          <li>
+            <time datetime="2026-11-06">2026-11-06</time>
+            <h3>《GTA VI》第三支预告逐帧库上线</h3>
+            <p>新增 47 个锚点，含 9 处文字情报与 4 处车辆细节，每条附时间码与原始措辞。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-05">2026-11-05</time>
+            <h3>玩家二创剪辑周榜（10 月 28 日—11 月 4 日）结算</h3>
+            <p>冠军作品《雨夜七秒》使用 11 段素材，最长单镜 6.2 秒，评论 214 条。</p>
+          </li>
+          <li>
+            <time datetime="2026-11-03">2026-11-03</time>
+            <h3>《荒野大镖客：救赎 2》圣丹尼斯长镜头标注完成</h3>
+            <p>1 分 48 秒不剪段落拆成 6 个信息层，机位横移三次，逐段给出可核对时间码。</p>
+          </li>
+          <li>
+            <time datetime="2026-10-30">2026-10-30</time>
+            <h3>实机演示 4 分 12 秒版本上线，室内外镜头统计</h3>
+            <p>切换 63 次，室内场景占比 38%，雨天镜头 4 段，与预告片取景重合 2 处。</p>
+          </li>
+          <li>
+            <time datetime="2026-10-28">2026-10-28</time>
+            <h3>画面考古频道补入 2013 年原版片头对照</h3>
+            <p>字体、配色与分镜节奏三张表，与 2018 年续作逐项并列。</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="channels" aria-labelledby="channelsTitle">
+        <div class="block-head">
+          <h2 id="channelsTitle">频道分类入口</h2>
+          <span class="more">9 个主题频道</span>
+        </div>
+        <div class="channel-grid">
+          <a href="/#featured">实机演示片段<small>4 分 12 秒版本</small></a>
+          <a href="/#deep">预告片逐帧解析<small>47 处锚点</small></a>
+          <a href="/#deep">过场长镜头拆解<small>不剪段落</small></a>
+          <a href="/#latest">玩家二创剪辑<small>周榜与素材</small></a>
+          <a href="/#related">版本差异对照<small>帧率与画质</small></a>
+          <a href="/#overview">画面考古<small>系列前作</small></a>
+          <a href="/#guide">观看体验指南<small>设备与码率</small></a>
+          <a href="/#related">社区口碑观察<small>评论与争议</small></a>
+          <a href="/#faq">影像归档说明<small>标注规则</small></a>
+        </div>
+      </section>
+
+      <section class="block" id="deep" aria-labelledby="deepTitle">
+        <div class="block-head">
+          <h2 id="deepTitle">深度解析：预告片的转场不是炫技，是省时间</h2>
+          <span class="more">全页唯一主体阅读区</span>
+        </div>
+        <div class="deep">
+          <h3>一、47 处锚点里，转场承担了 29 处叙事推进</h3>
+          <p>第三支预告 2 分 31 秒，按时间码切出 47 个可独立讨论的锚点。其中 29 处不是单纯换景，而是靠转场完成人物位置、时间跨度或叙述视角的切换。00:41 那道车灯扫过画面，前一帧是海边公路，后一帧直接落到室内停车场——中间没有交代车怎么开进去，也没给停车动作。省掉的是路程，留下的是“她到了”这个结果。</p>
+          <p>这种做法在 Rockstar 的预告片里有先例。2013 年《GTA V》首支预告 01:08 处，一个游艇尾部特写直接接迈克尔从泳池起身，同样跳过了从海面到住宅的空间过渡。两处相隔 13 年，剪法同源：用光源或物体特写当遮挡，观众注意力被吸住的那半秒，场景已经换了。</p>
+
+          <table class="compare-table">
+            <caption class="section-sub" style="text-align:left;caption-side:top;margin:0 0 8px;">第三支预告三处转场的可核对参数</caption>
+            <thead>
+              <tr><th>时间码</th><th>转场方式</th><th>跳过内容</th><th>后一帧信息</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>00:41</td><td>车灯扫屏</td><td>路程与停车</td><td>室内停车场，人物已下车</td></tr>
+              <tr><td>01:12</td><td>雨刷节奏切</td><td>对话开头</td><td>车内两人，副驾先开口</td></tr>
+              <tr><td>02:03</td><td>玻璃反射</td><td>从夜到晨的时间</td><td>同一街区，光线换到清晨</td></tr>
+            </tbody>
+          </table>
+
+          <h3>二、可被反驳的判断：雨天镜头并非技术展示</h3>
+          <p>社区里一种常见说法是，雨天水面反射是引擎能力秀。按时间码统计，第三支预告雨天镜头共 4 段，累计 21 秒，占全长 14%。其中 3 段雨刷在画面里可见，2 段人物隔着车窗对话。雨在这些段落里承担的是“隔开”功能——车内与车外、说话的人与听不见的人。若只为展示反射，不必让雨刷每次都入画。</p>
+          <p>可以反驳的点也在这里：雨刷入画可能只是车辆动画的常规配置，不能反推导演意图。目前没有官方分镜稿或制作访谈佐证，这条判断只能算推测，标记为“推测”。事实层面能核对的只有时长、镜头数与雨刷可见次数。</p>
+
+          <div class="pullquote">“01:12 的切点落在第二次雨刷刮到底的那一帧，前面一句台词只听见半句。故意让观众漏听，是为了让下一段副驾的重复句成为信息回收。”</div>
+
+          <h3>三、长镜头段落的规则前后变化</h3>
+          <p>《荒野大镖客：救赎 2》2018 年发售时的圣丹尼斯街景，1 分 48 秒不剪。2026 年 11 月 3 日重新标注时，把这段拆成 6 个信息层：招牌、路人、马车、天气、主角步速、背景对话。对照 2018 年玩家录制的同一段落，主机版本在人群密度上从远景 23 人降到 19 人，近景补了 2 个可交互 NPC。差异可能来自性能取舍，也可能是随机生成，现有材料不足以定论。</p>
+
+          <ul class="checklist">
+            <li>时间码可核对项：起始 00:00，结束 01:48，中间无剪辑点。</li>
+            <li>机位可核对项：横移三次，方向均为自左向右。</li>
+            <li>人群计数为示例统计，样本各取 5 帧，取均值。</li>
+            <li>“故意漏听台词”一条属推测，无官方访谈支撑。</li>
+          </ul>
+
+          <h3>四、判断拆成可核对结构：三条可验证的结论</h3>
+          <p>第一，转场密度高于系列前作。第三支预告 2 分 31 秒内 12 处转场，平均每 12.6 秒一次；2013 年《GTA V》首支预告 1 分 25 秒内 7 处，平均 12.1 秒一次。两者接近，所以“密度明显更高”站不住，只能说剪法更依赖遮挡物。</p>
+          <p>第二，文字情报集中在中段。9 处文字信息里 6 处出现在 00:58—01:40 之间，前后各留了大段无字幕画面。这种排布让中段信息密度偏高，适合暂停阅读，不适合通看。</p>
+          <p>第三，二创素材高度集中。周榜前十有 9 条使用雨夜路面反光，说明可复用镜头集中在少数几段。对剪辑者来说，素材池比想象中窄。</p>
+        </div>
+      </section>
+
+      <section class="block" id="guide" aria-labelledby="guideTitle">
+        <div class="block-head">
+          <h2 id="guideTitle">体验指南：看懂一段预告片的四步</h2>
+          <span class="more">适合第一次逐帧</span>
+        </div>
+        <ol class="steps">
+          <li><strong>先通看一遍，不开弹幕。</strong>记下三个问题：主角在哪儿、她想干什么、结尾停在谁脸上。三个问题答不上两个，说明第一遍被画面带走了。</li>
+          <li><strong>第二遍开 0.5 倍速，只盯转场。</strong>车灯、雨刷、玻璃反射、黑场，四类遮挡物出现的位置就是切点。第三支预告可先看 00:41、01:12、02:03 三处。</li>
+          <li><strong>第三遍关声音，只看字幕与画面文字。</strong>9 处文字情报集中在中段，暂停读完再继续，避免漏掉地点名与时间提示。</li>
+          <li><strong>最后对照实机演示。</strong>4 分 12 秒实机与预告重合 2 处取景，对比同一地点在两种剪法下的信息量差异，能看出哪些镜头是为预告专门设计的。</li>
+        </ol>
+        <p class="section-sub" style="margin-top:14px;">手机竖屏观看时，注意画面左右各裁掉约 12%，车灯扫屏这类边缘转场容易被裁没。</p>
+      </section>
+
+      <section class="block" id="faq" aria-labelledby="faqTitle">
+        <div class="block-head">
+          <h2 id="faqTitle">常见问题</h2>
+          <span class="more">8 个高频疑问</span>
+        </div>
+        <details class="faq-item" open>
+          <summary>第三支预告里的 47 处锚点是怎么定的？</summary>
+          <div class="faq-body"><p>锚点指可独立讨论的画面节点，判定标准有三条：镜头切换、画面文字出现、关键道具入画。三条满足其一即记一个锚点。同一镜头内多次切换按次数计，所以 2 分 31 秒能拆出 47 个。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>雨天镜头真的在展示水面反射技术吗？</summary>
+          <div class="faq-body"><p>目前只能确认 4 段雨天镜头、累计 21 秒、雨刷可见 3 次。反射精度与引擎能力的关系没有官方数据，把雨天直接等同技术展示属于推测，不宜当结论引用。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>实机演示 4 分 12 秒和预告片是同一批素材吗？</summary>
+          <div class="faq-body"><p>不完全相同。两者重合 2 处取景，但机位与光照不同：预告用黄昏侧光，实机用正午顶光。同一地点两种打光，说明实机片段是单独录制的。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>二创周榜的排名依据是什么？</summary>
+          <div class="faq-body"><p>按发布后 7 天内的播放、收藏与评论加权。加权公式为示例设定，样本为 10 月 28 日至 11 月 4 日发布的 63 条投稿，人工复核剔除重复投稿 5 条。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>手机上看预告片为什么会漏掉转场？</summary>
+          <div class="faq-body"><p>竖屏播放默认裁掉左右边缘，车灯扫屏、玻璃反射这类靠边缘完成的转场会被切掉。切横屏或用支持完整画幅的播放器能还原。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>《荒野大镖客：救赎 2》长镜头的人群密度差异能说明什么？</summary>
+          <div class="faq-body"><p>2026 年 11 月 3 日的标注显示远景人群从 23 人降到 19 人。差异可能来自性能取舍，也可能是随机生成波动。5 帧取样不足以定论，只能作为继续观察的线索。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>预告片中段的文字情报为什么难读？</summary>
+          <div class="faq-body"><p>9 处文字里 6 处挤在 00:58—01:40，平均每 7 秒出现一处，单处停留最短 1.4 秒。正常速度观看来不及读完，需要暂停。</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>画面考古频道的对照表依据哪些版本？</summary>
+          <div class="faq-body"><p>2008、2013、2018 三作片头，对照字体、主色与分镜节奏三项。主色按片头前 15 秒的平均色值取，为示例测算，非官方设计文档。</p></div>
+        </details>
+      </section>
+
+      <section class="block" id="comments" aria-labelledby="commentsTitle">
+        <div class="block-head">
+          <h2 id="commentsTitle">玩家评论</h2>
+          <span class="more">摘选 6 条</span>
+        </div>
+        <ul class="comment-list">
+          <li>
+            <div class="comment-head"><span class="avatar">阿</span><b>阿岚不剪片</b><span>2026-11-06</span></div>
+            <p>01:12 那个雨刷切点确实准。自己剪的时候试过同一位置，差两帧就变成生硬跳切，<em>这处标注</em>值得存下来。</p>
+          </li>
+          <li>
+            <div class="comment-head"><span class="avatar">老</span><b>老周看片</b><span>2026-11-06</span></div>
+            <p>雨天等于技术展示这个说法我不同意。<em>4 段 21 秒</em>里雨刷入画三次，更像在隔开车内车外，硬说成炫引擎有点过。</p>
+          </li>
+          <li>
+            <div class="comment-head"><span class="avatar">K</span><b>Kite_2077</b><span>2026-11-05</span></div>
+            <p>人群从 23 降到 19 那段，取样只有 5 帧，说服力一般。不过<em>长镜头 1 分 48 秒不剪</em>这个事实是真的，机位三次右移也对得上。</p>
+          </li>
+          <li>
+            <div class="comment-head"><span class="avatar">橘</span><b>橘子汽水加冰</b><span>2026-11-05</span></div>
+            <p>中段文字太密，第一次看完全没读完，暂停三次才看完。<em>00:58 到 01:40</em> 这段建议单独做个可读版。</p>
+          </li>
+          <li>
+            <div class="comment-head"><span class="avatar">剪</span><b>剪到凌晨三点</b><span>2026-11-04</span></div>
+            <p>周榜前十九条用雨夜反光，素材池是真的窄。我上个月投的那条用了白天沙漠，播放只有别人零头，<em>排名机制</em>没说错吧。</p>
+          </li>
+          <li>
+            <div class="comment-head"><span class="avatar">十</span><b>十三号仓库</b><span>2026-11-03</span></div>
+            <p>2013 年首支预告 7 处转场、1 分 25 秒，平均 12.1 秒，和第三支的 12.6 秒接近。这个对比比我预想的更有意思，<em>密度更高</em>的说法确实站不住。</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="news" aria-labelledby="newsTitle">
+        <div class="block-head">
+          <h2 id="newsTitle">相关资讯</h2>
+          <span class="more">社区与版本动态</span>
+        </div>
+        <ul class="news-list">
+          <li>
+            <time datetime="2026-11-07">2026-11-07</time>
+            <div>
+              <h3>社区标注组扩到 14 人，逐帧库开放纠错入口</h3>
+              <p>每条锚点下方可提交时间码偏差，误差超过 0.2 秒进入复核队列。</p>
+            </div>
+          </li>
+          <li>
+            <time datetime="2026-11-05">2026-11-05</time>
+            <div>
+              <h3>主机 60 帧模式补丁 1.07 上线，雨天反射开销下调</h3>
+              <p>补丁说明提到水面反射的采样层级由 4 级改为 3 级，具体表现待实机对比。</p>
+            </div>
+          </li>
+          <li>
+            <time datetime="2026-11-02">2026-11-02</time>
+            <div>
+              <h3>《雨夜七秒》作者发布分镜手稿，共 11 页</h3>
+              <p>手稿显示成片 11 段素材里 4 段被剪掉，最长单镜 6.2 秒对应原素材第 3 版。</p>
+            </div>
+          </li>
+          <li>
+            <time datetime="2026-10-30">2026-10-30</time>
+            <div>
+              <h3>实机演示上线当日，逐帧预约量 2,900 条</h3>
+              <p>预约集中在室内场景段落，占 61%，室外公路段落占 24%。</p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="block" id="related" aria-labelledby="relatedTitle">
+        <div class="block-head">
+          <h2 id="relatedTitle">相关推荐</h2>
+          <span class="more">按标签索骥</span>
+        </div>
+        <div class="tag-cloud">
+          <a href="/#deep">预告片遮挡转场</a>
+          <a href="/#deep">过场长镜头机位</a>
+          <a href="/#guide">手机竖屏裁切</a>
+          <a href="/#latest">二创素材池</a>
+          <a href="/#overview">系列前作片头</a>
+          <a href="/#related">帧率模式差异</a>
+          <a href="/#featured">雨夜路面反光</a>
+          <a href="/#faq">锚点时间码偏差</a>
+          <a href="/#news">补丁 1.07 反射层级</a>
+          <a href="/#guide">0.5 倍速观看法</a>
+        </div>
+      </section>
+
+      <section class="block" id="ranking" aria-labelledby="rankingTitle">
+        <div class="block-head">
+          <h2 id="rankingTitle">本周二创剪辑榜</h2>
+          <span class="more">10 月 28 日—11 月 4 日</span>
+        </div>
+        <ol class="rank-list">
+          <li><a href="/#latest">《雨夜七秒》</a><span>11 段素材 · 2 分 05 秒</span></li>
+          <li><a href="/#latest">《公路尽头没有灯》</a><span>8 段素材 · 1 分 52 秒</span></li>
+          <li><a href="/#latest">《她走进停车场》</a><span>6 段素材 · 1 分 41 秒</span></li>
+          <li><a href="/#latest">《圣丹尼斯六帧》</a><span>12 段素材 · 2 分 18 秒</span></li>
+          <li><a href="/#latest">《雨刷第二次刮到底》</a><span>9 段素材 · 1 分 59 秒</span></li>
+        </ol>
+      </section>
+
+    </div>
+
+    <aside class="side-col" aria-label="侧栏导航与补充信息">
+      <div class="side-card">
+        <h2>栏目导航</h2>
+        <ul class="side-nav" id="sideNav">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#featured">精选内容推荐</a></li>
+          <li><a href="/#latest">最新更新</a></li>
+          <li><a href="/#channels">频道分类入口</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">玩家评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#related">相关推荐</a></li>
+          <li><a href="/#ranking">本周二创剪辑榜</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h2>热门标签</h2>
+        <div class="tag-cloud">
+          <a href="/#deep">遮挡转场</a>
+          <a href="/#deep">长镜头</a>
+          <a href="/#guide">竖屏裁切</a>
+          <a href="/#faq">时间码</a>
+          <a href="/#related">帧率模式</a>
+          <a href="/#latest">二创素材</a>
+        </div>
+      </div>
+      <div class="side-card">
+        <h2>站内速览</h2>
+        <ul class="side-list">
+          <li><a href="/#deep">第三支预告 47 处锚点清单</a></li>
+          <li><a href="/#latest">实机演示 4 分 12 秒统计</a></li>
+          <li><a href="/#faq">锚点偏差 0.2 秒复核规则</a></li>
+          <li><a href="/#news">补丁 1.07 反射层级变化</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h2>数据说明</h2>
+        <p class="side-note">本页标注、人群计数与榜单排名均为示例数据，用于演示检索与阅读结构，不代表官方发布。</p>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-text" style="font-size:20px;">r星<span style="color:var(--brand);">视频</span></div>
+        <p>逐帧看镜头，按时间码记信息。</p>
+        <p>页面更新：2026-11-06，对应第三支预告锚点库上线。</p>
+      </div>
+      <div class="footer-col">
+        <h2>影像频道</h2>
+        <ul>
+          <li><a href="/#featured">实机演示片段</a></li>
+          <li><a href="/#deep">预告片逐帧解析</a></li>
+          <li><a href="/#deep">过场长镜头拆解</a></li>
+          <li><a href="/#latest">玩家二创剪辑</a></li>
+          <li><a href="/#related">版本差异对照</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>阅读与工具</h2>
+        <ul>
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问题</a></li>
+          <li><a href="/#comments">玩家评论</a></li>
+          <li><a href="/#ranking">本周二创剪辑榜</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>社区</h2>
+        <ul>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#related">相关推荐</a></li>
+          <li><a href="/#faq">锚点纠错说明</a></li>
+          <li><a href="/#latest">更新清单</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>示例数据站 · 条目、评论与统计为演示内容，不含官方素材授权。</span>
+      <span>© 2026 r星视频 归档组</span>
+    </div>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn=document.getElementById('menuBtn');
+  var mainNav=document.getElementById('mainNav');
+  if(menuBtn&&mainNav){
+    menuBtn.addEventListener('click',function(){
+      var open=mainNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+      menuBtn.setAttribute('aria-label',open?'关闭导航菜单':'打开导航菜单');
+    });
+    mainNav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click',function(){
+        if(window.innerWidth<=760){
+          mainNav.classList.remove('open');
+          menuBtn.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+  }
+
+  var searchInput=document.getElementById('searchInput');
+  var searchResult=document.getElementById('searchResult');
+  var index=Array.prototype.map.call(
+    document.querySelectorAll('.content-col section.block'),
+    function(sec){
+      var h=sec.querySelector('h2');
+      return {id:sec.id, title:h?h.textContent.trim():sec.id};
+    }
+  );
+  var more=Array.prototype.map.call(document.querySelectorAll('.side-list a, .tag-cloud a, .channel-grid a'),function(a){
+    return {id:(a.getAttribute('href')||'').replace('/#',''), title:a.textContent.trim()};
+  });
+  var pool=index.concat(more);
+  var seen={};
+  pool=pool.filter(function(it){
+    var key=it.title+it.id;
+    if(seen[key])return false;
+    seen[key]=true;
+    return true;
+  });
+
+  function render(q){
+    if(!searchResult)return;
+    var v=q.trim().toLowerCase();
+    if(!v){searchResult.classList.remove('open');searchResult.innerHTML='';return;}
+    var hits=pool.filter(function(it){return it.title.toLowerCase().indexOf(v)>-1;});
+    if(hits.length===0){
+      searchResult.innerHTML='<div class="sr-empty">没有找到“'+q.replace(/[<>&]/g,'')+'”。试试“转场”“长镜头”“锚点”或“帧率”。</div>';
+    }else{
+      searchResult.innerHTML=hits.slice(0,8).map(function(it){
+        return '<a class="sr-item" href="/#'+it.id+'">'+it.title+'<small>跳到该栏目</small></a>';
+      }).join('');
+    }
+    searchResult.classList.add('open');
+  }
+  if(searchInput){
+    searchInput.addEventListener('input',function(){render(searchInput.value);});
+    searchInput.addEventListener('keydown',function(e){
+      if(e.key==='Escape'){searchResult.classList.remove('open');searchInput.blur();}
+    });
+  }
+  document.addEventListener('click',function(e){
+    if(searchResult&&!searchResult.contains(e.target)&&e.target!==searchInput){
+      searchResult.classList.remove('open');
+    }
+  });
+
+  var toTop=document.getElementById('toTop');
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>480){toTop.classList.add('show');}
+    else{toTop.classList.remove('show');}
+  },{passive:true});
+  if(toTop){
+    toTop.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+
+  var links=Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  var sections=links.map(function(a){
+    var id=(a.getAttribute('href')||'').replace('/#','');
+    return document.getElementById(id);
+  });
+  if('IntersectionObserver' in window){
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          links.forEach(function(l){l.classList.remove('active');});
+          var i=sections.indexOf(en.target);
+          if(i>-1&&links[i])links[i].classList.add('active');
+        }
+      });
+    },{rootMargin:'-40% 0px -50% 0px',threshold:0});
+    sections.forEach(function(s){if(s)obs.observe(s);});
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"r星视频",
+  "description":"收录《GTA》系列与《荒野大镖客》实机演示、预告片逐帧解析与玩家二创影像的中文归档站。",
+  "inLanguage":"zh-CN"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"第三支预告里的 47 处锚点是怎么定的？","acceptedAnswer":{"@type":"Answer","text":"锚点指可独立讨论的画面节点，判定标准有三条：镜头切换、画面文字出现、关键道具入画。三条满足其一即记一个锚点，同一镜头内多次切换按次数计。"}},
+    {"@type":"Question","name":"雨天镜头真的在展示水面反射技术吗？","acceptedAnswer":{"@type":"Answer","text":"目前只能确认 4 段雨天镜头、累计 21 秒、雨刷可见 3 次。反射精度与引擎能力的关系没有官方数据，把雨天直接等同技术展示属于推测。"}},
+    {"@type":"Question","name":"实机演示 4 分 12 秒和预告片是同一批素材吗？","acceptedAnswer":{"@type":"Answer","text":"不完全相同。两者重合 2 处取景，但机位与光照不同：预告用黄昏侧光，实机用正午顶光，说明实机片段是单独录制的。"}},
+    {"@type":"Question","name":"二创周榜的排名依据是什么？","acceptedAnswer":{"@type":"Answer","text":"按发布后 7 天内的播放、收藏与评论加权。样本为 10 月 28 日至 11 月 4 日发布的 63 条投稿，人工复核剔除重复投稿 5 条。"}},
+    {"@type":"Question","name":"手机上看预告片为什么会漏掉转场？","acceptedAnswer":{"@type":"Answer","text":"竖屏播放默认裁掉左右边缘，车灯扫屏、玻璃反射这类靠边缘完成的转场会被切掉。切横屏或用支持完整画幅的播放器能还原。"}},
+    {"@type":"Question","name":"《荒野大镖客：救赎 2》长镜头的人群密度差异能说明什么？","acceptedAnswer":{"@type":"Answer","text":"2026 年 11 月 3 日的标注显示远景人群从 23 人降到 19 人。差异可能来自性能取舍，也可能是随机生成波动，5 帧取样不足以定论。"}},
+    {"@type":"Question","name":"预告片中段的文字情报为什么难读？","acceptedAnswer":{"@type":"Answer","text":"9 处文字里 6 处挤在 00:58—01:40，平均每 7 秒出现一处，单处停留最短 1.4 秒，正常速度观看来不及读完。"}},
+    {"@type":"Question","name":"画面考古频道的对照表依据哪些版本？","acceptedAnswer":{"@type":"Answer","text":"2008、2013、2018 三作片头，对照字体、主色与分镜节奏三项。主色按片头前 15 秒的平均色值取，为示例测算。"}}
+  ]
+}
+</script>
+</body>
+  </html>
