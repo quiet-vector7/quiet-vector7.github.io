@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>混剪pmvyandex-剪辑素材与成片拆解</title>
+<meta name="description" content="混剪pmvyandex聚焦多源素材混剪的成片拆解、节奏卡点、转场与调色方案，整理可复用的工程结构、素材清单与发布节奏记录，含今日更新与问答。">
+<meta name="keywords" content="混剪pmvyandex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231b2a4a'/%3E%3Cpath d='M7 21l6-9 4 5 3-4 5 8z' fill='%23f2b53a'/%3E%3Ccircle cx='11' cy='10' r='2.4' fill='%23e8eef7'/%3E%3C/svg%3E">
+<style>
+:root{
+  --ink:#141b26;
+  --ink-2:#3c4859;
+  --ink-3:#6b7787;
+  --line:#dfe4ec;
+  --line-2:#eef1f6;
+  --bg:#f6f7fa;
+  --card:#ffffff;
+  --brand:#1b2a4a;
+  --brand-2:#27406e;
+  --accent:#f2b53a;
+  --accent-2:#c8763c;
+  --teal:#2f7d78;
+  --radius:12px;
+  --radius-sm:8px;
+  --shadow:0 1px 2px rgba(20,27,38,.06),0 8px 24px rgba(20,27,38,.06);
+  --shadow-sm:0 1px 2px rgba(20,27,38,.07);
+  --sp-1:6px;--sp-2:12px;--sp-3:18px;--sp-4:26px;--sp-5:38px;--sp-6:56px;
+  --fs-h1:clamp(28px,4.4vw,44px);
+  --fs-h2:clamp(20px,2.6vw,26px);
+  --fs-h3:17px;
+  --fs-body:15.5px;
+  --fs-sm:13.5px;
+  --fs-xs:12.5px;
+  --sticky-h:112px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--sticky-h)}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  font-size:var(--fs-body);line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:var(--brand-2);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700;letter-spacing:.2px}
+p{margin:0 0 var(--sp-2)}
+ul,ol{margin:0 0 var(--sp-2);padding-left:1.25em}
+li{margin-bottom:4px}
+.wrap{width:min(1180px,100% - 32px);margin-inline:auto}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- 吸顶公告条 + 页头 ---------- */
+.sticky-shell{position:sticky;top:0;z-index:60}
+.notice{
+  background:var(--brand);color:#dbe3f0;font-size:var(--fs-sm);
+}
+.notice .wrap{display:flex;align-items:center;gap:10px;min-height:38px;padding-block:6px;flex-wrap:wrap}
+.notice .tag{
+  background:var(--accent);color:#2a1f04;font-weight:700;font-size:var(--fs-xs);
+  padding:1px 8px;border-radius:99px;flex:none;
+}
+.notice a{color:#fff;border-bottom:1px solid rgba(255,255,255,.4)}
+.notice .dot{color:var(--accent)}
+.site-head{
+  background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);
+  backdrop-filter:saturate(160%) blur(6px);
+}
+.head-bar{display:flex;align-items:center;gap:16px;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;flex:none}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text b{font-size:17px;letter-spacing:.4px;color:var(--brand)}
+.brand-text span{font-size:11.5px;color:var(--ink-3);letter-spacing:1.6px}
+.theme-nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap;align-items:center}
+.theme-nav a{
+  font-size:14px;color:var(--ink-2);padding:7px 10px;border-radius:var(--radius-sm);
+}
+.theme-nav a:hover{background:var(--line-2);color:var(--brand);text-decoration:none}
+.head-tools{display:flex;align-items:center;gap:8px;flex:none}
+.search-box{position:relative;display:flex;align-items:center}
+.search-box input{
+  width:190px;font:inherit;font-size:var(--fs-sm);padding:7px 30px 7px 11px;
+  border:1px solid var(--line);border-radius:99px;background:var(--bg);color:var(--ink);
+}
+.search-box input:focus{background:#fff;border-color:var(--brand-2)}
+.search-box button{
+  position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  border:0;background:none;padding:4px 6px;cursor:pointer;color:var(--ink-3);font-size:15px;
+}
+.search-msg{font-size:var(--fs-xs);color:var(--accent-2);min-height:0}
+.menu-btn{
+  display:none;align-items:center;gap:6px;font:inherit;font-size:14px;
+  border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:var(--radius-sm);
+  padding:7px 11px;cursor:pointer;
+}
+.mobile-nav{display:none;border-top:1px solid var(--line-2);padding-block:8px}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:9px 4px;font-size:14.5px;color:var(--ink-2);border-bottom:1px dashed var(--line-2)}
+@media(max-width:900px){
+  .theme-nav{display:none}
+  .menu-btn{display:inline-flex}
+  .search-box input{width:140px}
+}
+@media(max-width:520px){
+  .search-box input{width:104px}
+  .brand-text span{display:none}
+}
+
+/* ---------- 首屏 ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(1100px 380px at 88% -90px,#e7ecf7 0%,rgba(231,236,247,0) 62%),
+    linear-gradient(180deg,#fbfcfe 0%,var(--bg) 100%);
+  border-bottom:1px solid var(--line-2);
+}
+.hero-grid{
+  display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:var(--sp-5);align-items:center;padding-block:var(--sp-6) var(--sp-5);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-xs);letter-spacing:1.4px;
+  color:var(--brand-2);font-weight:700;text-transform:uppercase;margin-bottom:12px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--accent)}
+.hero h1{font-size:var(--fs-h1);letter-spacing:-.5px;color:var(--brand)}
+.hero-sub{font-size:16.5px;color:var(--ink-2);margin-top:14px;max-width:46ch}
+.hero-sub b{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:600;
+  padding:10px 18px;border-radius:99px;border:1px solid transparent;cursor:pointer;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+.btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow-sm)}
+.btn-primary:hover{background:var(--brand-2);text-decoration:none;transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--brand);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--brand-2);text-decoration:none;transform:translateY(-2px)}
+.hero-stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:26px;padding-top:16px;border-top:1px dashed var(--line)}
+.hero-stats div b{display:block;font-size:21px;color:var(--brand);letter-spacing:-.3px}
+.hero-stats div span{font-size:var(--fs-xs);color:var(--ink-3)}
+
+/* 首屏原创视觉：时间轴卡片 */
+.hero-visual{position:relative;min-height:330px}
+.tl-card{
+  position:absolute;background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:12px 14px;width:214px;
+}
+.tl-card small{display:block;font-size:11.5px;letter-spacing:1.2px;color:var(--ink-3);margin-bottom:4px}
+.tl-card b{font-size:14px;color:var(--brand)}
+.tl-card p{font-size:12.5px;color:var(--ink-2);margin:4px 0 0;line-height:1.55}
+.tl-a{top:6px;left:2px}
+.tl-b{top:104px;right:0;border-left:3px solid var(--accent)}
+.tl-c{bottom:8px;left:44px;border-left:3px solid var(--teal)}
+.hero-visual svg{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:var(--sp-4)}
+  .hero-visual{min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;position:static}
+  .tl-card{position:static;width:auto}
+  .tl-c{grid-column:1 / -1}
+  .hero-visual svg{display:none}
+}
+
+/* ---------- 主内容骨架：左主栏 + 右侧栏 ---------- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:var(--sp-4);padding-block:var(--sp-5)}
+@media(max-width:1024px){
+  .layout{grid-template-columns:1fr}
+  .side{order:2}
+}
+.section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-4);margin-bottom:var(--sp-3)}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:var(--sp-3)}
+.section-head h2{font-size:var(--fs-h2);color:var(--brand)}
+.section-head .hint{font-size:var(--fs-xs);color:var(--ink-3)}
+.section-head .link-more{margin-left:auto;font-size:var(--fs-sm)}
+.lead{color:var(--ink-2);font-size:15px}
+
+/* 概览：非对称组合 */
+.overview{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:var(--sp-3)}
+.ov-main{border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:var(--sp-3);background:linear-gradient(180deg,#fbfcfe,#fff)}
+.ov-side{display:grid;gap:10px}
+.ov-pill{border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:11px 13px;background:#fff}
+.ov-pill b{display:block;font-size:14px;color:var(--brand)}
+.ov-pill span{font-size:var(--fs-xs);color:var(--ink-3)}
+@media(max-width:720px){.overview{grid-template-columns:1fr}}
+
+/* 卡片网格 */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:var(--sp-2)}
+.card{
+  border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;
+  overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease,box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card img{width:100%;height:126px;object-fit:cover}
+.card-body{padding:11px 13px 13px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-body h3{font-size:15px;color:var(--ink)}
+.card-meta{font-size:11.5px;color:var(--ink-3);display:flex;gap:8px;flex-wrap:wrap}
+.card-body p{font-size:var(--fs-sm);color:var(--ink-2);margin:0;line-height:1.6}
+.card .tags{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap;padding-top:6px}
+.tagchip{
+  font-size:11.5px;color:var(--brand-2);background:#eef2f9;border:1px solid #e2e9f5;
+  padding:1px 8px;border-radius:99px;white-space:nowrap;
+}
+.tagchip.alt{background:#fdf5e6;border-color:#f6e5c2;color:#8a5a11}
+.tagchip.teal{background:#eaf5f3;border-color:#cfe8e4;color:#256b66}
+
+/* 紧凑列表 */
+.tight-list{list-style:none;padding:0;margin:0;border-top:1px solid var(--line-2)}
+.tight-list li{
+  display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:12px;align-items:baseline;
+  padding:10px 2px;border-bottom:1px solid var(--line-2);margin:0;font-size:14.5px;
+}
+.tight-list time{font-size:var(--fs-xs);color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tight-list a{color:var(--ink)}
+.tight-list a:hover{color:var(--brand-2)}
+.tight-list .src{font-size:var(--fs-xs);color:var(--ink-3);white-space:nowrap}
+@media(max-width:520px){
+  .tight-list li{grid-template-columns:66px minmax(0,1fr);}
+  .tight-list .src{display:none}
+}
+
+/* 分类索引 / 标签索引 */
+.channel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:10px}
+.channel{
+  display:block;border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;background:#fff;
+  transition:border-color .15s ease,transform .15s ease;
+}
+.channel:hover{border-color:var(--brand-2);text-decoration:none;transform:translateY(-2px)}
+.channel b{display:block;font-size:14.5px;color:var(--brand)}
+.channel span{font-size:var(--fs-xs);color:var(--ink-3);line-height:1.5;display:block;margin-top:3px}
+
+/* 深度解析 */
+.feature{
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;padding:0;background:#fff;
+}
+.feature .feat-head{
+  padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--line-2);
+  background:linear-gradient(180deg,#f8fafe,#fff);
+}
+.feature .feat-head h2{font-size:var(--fs-h2);color:var(--brand)}
+.feature .feat-head p{font-size:var(--fs-sm);color:var(--ink-3);margin:6px 0 0}
+.feat-body{padding:var(--sp-4)}
+.feat-body h3{font-size:var(--fs-h3);color:var(--brand);margin:var(--sp-3) 0 8px}
+.feat-body h3:first-child{margin-top:0}
+.claim{
+  border-left:3px solid var(--accent);background:#fffbf1;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:11px 14px;margin:var(--sp-2) 0;font-size:14.5px;color:#4a3a12;
+}
+.claim b{color:#2a1f04}
+/* 可核对结构：对照面板 */
+.compare{width:100%;border-collapse:collapse;font-size:var(--fs-sm);margin:var(--sp-2) 0 var(--sp-3)}
+.compare caption{text-align:left;font-size:var(--fs-xs);color:var(--ink-3);padding-bottom:6px}
+.compare th,.compare td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.compare thead th{background:#f4f7fc;color:var(--brand);font-size:var(--fs-xs);letter-spacing:.4px}
+.compare td b{color:var(--ink)}
+.table-scroll{overflow-x:auto}
+
+/* 编号步骤 */
+.steps{counter-reset:st;list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.steps li{
+  position:relative;padding:11px 14px 11px 46px;background:#fff;border:1px solid var(--line-2);
+  border-radius:var(--radius-sm);font-size:14.5px;margin:0;
+}
+.steps li::before{
+  counter-increment:st;content:counter(st,decimal-leading-zero);
+  position:absolute;left:12px;top:11px;font-size:12.5px;font-weight:700;color:#fff;
+  background:var(--brand);border-radius:99px;width:24px;height:24px;display:grid;place-items:center;
+}
+.steps li b{color:var(--brand)}
+
+/* 引语卡 */
+.quote-card{
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:var(--sp-3);
+  background:linear-gradient(135deg,#fff,#f7f9fd);position:relative;
+}
+.quote-card::before{content:"”";position:absolute;right:16px;top:0;font-size:52px;color:#dfe6f2;line-height:1}
+.quote-card p{font-size:15px;color:var(--ink-2);margin:0 0 8px;max-width:56ch}
+.quote-card cite{font-style:normal;font-size:var(--fs-xs);color:var(--ink-3)}
+
+/* 评论 */
+.comments{display:grid;gap:10px}
+.comment{border:1px solid var(--line-2);border-radius:var(--radius-sm);padding:11px 13px;background:#fff}
+.comment header{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:4px}
+.comment header b{font-size:13.5px;color:var(--brand)}
+.comment header time{font-size:11.5px;color:var(--ink-3)}
+.comment header .chip{font-size:11px;color:var(--teal);background:#eaf5f3;border-radius:99px;padding:1px 7px}
+.comment p{margin:0;font-size:14px;color:var(--ink-2)}
+.comment .reply{margin-top:7px;padding-left:11px;border-left:2px solid var(--line);font-size:13.5px;color:var(--ink-3)}
+
+/* FAQ */
+.faq details{border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;margin-bottom:8px;background:#fff}
+.faq summary{
+  cursor:pointer;padding:11px 13px;font-size:14.5px;font-weight:600;color:var(--brand);
+  list-style:none;display:flex;gap:9px;align-items:baseline;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"＋";color:var(--accent-2);font-weight:700;flex:none}
+.faq details[open] summary::before{content:"－"}
+.faq details p{margin:0;padding:0 13px 12px 32px;font-size:14px;color:var(--ink-2)}
+
+/* 侧栏 */
+.side{display:flex;flex-direction:column;gap:var(--sp-3)}
+.side-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-3)}
+.side-card h2{font-size:15.5px;color:var(--brand);margin-bottom:10px}
+.side-nav{list-style:none;padding:0;margin:0;font-size:14px}
+.side-nav a{display:block;padding:6px 9px;border-radius:6px;color:var(--ink-2);border-left:2px solid transparent}
+.side-nav a:hover{background:var(--line-2);text-decoration:none}
+.side-nav a.active{background:#eef2f9;color:var(--brand);border-left-color:var(--accent);font-weight:600}
+.rank-list{list-style:none;padding:0;margin:0;counter-reset:rk}
+.rank-list li{
+  counter-increment:rk;display:grid;grid-template-columns:22px 1fr;gap:8px;
+  padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:14px;margin:0;
+}
+.rank-list li:last-child{border-bottom:0}
+.rank-list li::before{
+  content:counter(rk);font-weight:700;color:#fff;background:var(--brand);
+  width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;
+}
+.rank-list li:nth-child(1)::before{background:var(--accent-2)}
+.rank-list small{display:block;color:var(--ink-3);font-size:11.5px}
+.tag-cloud{display:flex;flex-wrap:wrap;gap:6px}
+.tag-cloud a{font-size:12.5px;padding:2px 9px;border:1px solid var(--line);border-radius:99px;color:var(--ink-2);background:#fbfcfe}
+.tag-cloud a:hover{border-color:var(--brand-2);color:var(--brand-2);text-decoration:none}
+
+/* 时间线（补充板块） */
+.timeline{list-style:none;padding:0;margin:0;position:relative}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.timeline li{position:relative;padding:0 0 var(--sp-3) 26px;margin:0;font-size:14.5px}
+.timeline li::before{content:"";position:absolute;left:1px;top:7px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--brand-2)}
+.timeline li b{color:var(--brand)}
+.timeline time{display:block;font-size:11.5px;color:var(--ink-3);letter-spacing:.4px}
+
+/* 可信度分层 */
+.trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.trust div{border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px 13px;background:#fff}
+.trust b{display:block;font-size:13.5px;margin-bottom:4px}
+.trust .t1 b{color:#1f6b46}
+.trust .t2 b{color:#8a5a11}
+.trust .t3 b{color:#9b3324}
+.trust p{font-size:12.5px;color:var(--ink-2);margin:0}
+@media(max-width:640px){.trust{grid-template-columns:1fr}}
+
+/* 页尾 */
+.site-foot{background:var(--brand);color:#c8d3e6;margin-top:var(--sp-4);font-size:var(--fs-sm)}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:var(--sp-4);padding-block:var(--sp-5) var(--sp-4)}
+.site-foot h2{font-size:14px;color:#fff;letter-spacing:.6px;margin-bottom:10px}
+.site-foot a{color:#c8d3e6}
+.site-foot a:hover{color:#fff}
+.foot-brand b{font-size:17px;color:#fff;letter-spacing:.6px}
+.foot-brand p{font-size:var(--fs-sm);line-height:1.7;margin:8px 0 0;max-width:34ch}
+.foot-list{list-style:none;padding:0;margin:0}
+.foot-list li{margin-bottom:6px;font-size:13.5px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.14);padding-block:12px 18px;display:flex;gap:12px;flex-wrap:wrap;font-size:var(--fs-xs);color:#9fb0cd}
+.foot-bottom .upd{margin-left:auto}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:16px;bottom:18px;z-index:70;border:0;cursor:pointer;
+  width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;
+  font-size:16px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(8px);
+  transition:opacity .18s ease,transform .18s ease,visibility .18s;
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+@media(max-width:520px){.to-top{width:40px;height:40px;right:12px;bottom:12px}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .card:hover,.channel:hover,.btn:hover{transform:none}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-shell">
+  <div class="notice" role="region" aria-label="站内更新公告">
+    <div class="wrap">
+      <span class="tag">更新</span>
+      <span>11月7日新增《双十一预热混剪》BGM卡点版工程与素材清单 <span class="dot">·</span> 11月6日修正转场时长标注</span>
+      <a href="/#latest">查看全部更新</a>
+    </div>
+  </div>
+
+  <header class="site-head">
+    <div class="wrap head-bar">
+      <a class="brand" href="/#top" aria-label="返回首页顶部">
+        <svg class="brand-mark" viewBox="0 0 40 40" role="img" aria-label="剪刀与时间轴组成的标志">
+          <rect x="1" y="1" width="38" height="38" rx="9" fill="#1b2a4a"/>
+          <path d="M8 30l9-14 5 6 4-5 6 13z" fill="#f2b53a"/>
+          <circle cx="14" cy="12" r="3" fill="#e8eef7"/>
+          <path d="M28 8v17" stroke="#e8eef7" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 11h8M24 17h8" stroke="#8fa6cc" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <span class="brand-text">
+          <b>混剪pmvyandex</b>
+          <span>成片拆解 · 节奏卡点</span>
+        </span>
+      </a>
+      <nav class="theme-nav" aria-label="主题导航">
+        <a href="/#overview">领域概览</a>
+        <a href="/#picks">精选成片</a>
+        <a href="/#latest">最新更新</a>
+        <a href="/#channels">素材频道</a>
+        <a href="/#deep">深度解析</a>
+        <a href="/#guide">体验指南</a>
+        <a href="/#faq">常见问答</a>
+      </nav>
+      <div class="head-tools">
+        <div class="search-box">
+          <label class="sr-only" for="site-search">站内查找素材或成片</label>
+          <input id="site-search" type="search" placeholder="查素材 / 成片" autocomplete="off">
+          <button type="button" id="search-btn" aria-label="执行查找">⌕</button>
+        </div>
+        <button class="menu-btn" type="button" id="menu-btn" aria-expanded="false" aria-controls="mobile-nav">菜单</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <p class="search-msg" id="search-msg" role="status" aria-live="polite"></p>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="移动端主题导航">
+      <a href="/#overview">领域概览</a>
+      <a href="/#picks">精选成片</a>
+      <a href="/#latest">最新更新</a>
+      <a href="/#channels">素材频道</a>
+      <a href="/#deep">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问答</a>
+      <a href="/#news">相关资讯</a>
+      <a href="/#reco">相关推荐</a>
+    </nav>
+  </header>
+</div>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">多源素材 · 成片复盘</span>
+      <h1>混剪pmvyandex</h1>
+      <p class="hero-sub">把影视片段、游戏录屏、真人实拍放进同一条时间轴，逐帧核对卡点、转场与调色。素材来源、BGM 版本、工程参数都写清楚，<b>2026年10月</b>到<b>11月</b>共归档 <b>137</b> 条成片拆解。</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/#deep">读深度解析 →</a>
+        <a class="btn btn-ghost" href="/#picks">看精选成片</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>137</b><span>成片拆解条目</span></div>
+        <div><b>46</b><span>可复用工程模板</span></div>
+        <div><b>312</b><span>带时间码素材片段</span></div>
+      </div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <svg viewBox="0 0 420 330" role="presentation">
+        <path d="M30 64 C120 24 300 40 380 96" fill="none" stroke="#dfe6f2" stroke-width="2" stroke-dasharray="6 7"/>
+        <path d="M44 262 C150 300 292 288 372 214" fill="none" stroke="#dfe6f2" stroke-width="2" stroke-dasharray="6 7"/>
+      </svg>
+      <div class="tl-card tl-a">
+        <small>00:12:04</small>
+        <b>鼓点落点</b>
+        <p>《双十一预热混剪》第 7 次重拍，切入时间提前 4 帧。</p>
+      </div>
+      <div class="tl-card tl-b">
+        <small>00:26:18</small>
+        <b>转场桥段</b>
+        <p>黑场 8 帧 + 环境声压低 6dB，接游戏录屏。</p>
+      </div>
+      <div class="tl-card tl-c">
+        <small>00:48:30</small>
+        <b>调色收尾</b>
+        <p>Lumetri 高光 -12，肤色统一到 5600K。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="layout">
+
+    <!-- ============ 主栏 ============ -->
+    <div class="main">
+
+      <!-- 1 领域概览 -->
+      <section class="section" id="overview" aria-labelledby="h-overview">
+        <div class="section-head">
+          <h2 id="h-overview">领域概览</h2>
+          <span class="hint">2026-11-08 核对的规模数字</span>
+        </div>
+        <div class="overview">
+          <div class="ov-main">
+            <p>多源混剪指一条时间轴上同时容纳三类以上素材：影视剧切片、游戏录屏、真人实拍。它和单一素材剪辑的分水岭不在片长，而在<b>声画同步的基准</b>——画面可以跳，鼓点不能飘。</p>
+            <p>10月1日到11月7日，站内归档的工程里 71 条使用 120—128BPM 的电子鼓点，占 52%；其余用 90BPM 以下的 Lo-fi 与影视原声。卡点误差容忍值多数压在 ±2 帧，超过 4 帧就会被观众读出“拖了一下”。</p>
+            <p>常用软件分布：<b>Premiere Pro 2024</b> 79 条、CapCut 专业版 34 条、DaVinci Resolve 18 24 条。三者对 4K 代理文件的处理差异，直接决定 47 秒以上的成片是否要分段渲染。</p>
+          </div>
+          <div class="ov-side">
+            <div class="ov-pill"><b>影视切片</b><span>需确认版权窗口，二创时长建议≤15 秒</span></div>
+            <div class="ov-pill"><b>游戏录屏</b><span>1080p 60fps 起，码率不低于 20Mbps</span></div>
+            <div class="ov-pill"><b>真人实拍</b><span>快门 1/50，与 25fps 时间轴对齐</span></div>
+            <div class="ov-pill"><b>音频基准</b><span>先定 BGM 再排画面，反向操作重排率高</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 精选内容推荐 -->
+      <section class="section" id="picks" aria-labelledby="h-picks">
+        <div class="section-head">
+          <h2 id="h-picks">精选成片推荐</h2>
+          <span class="hint">按可复用程度排序，非播放量</span>
+          <a class="link-more" href="/#deep">拆解方法 →</a>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <img src="https://picsum.photos/seed/picker-cut1/420/260" width="420" height="260" loading="lazy" alt="暗色场景中人物背影与霓虹灯条的画面">
+            <div class="card-body">
+              <h3>雨天霓虹 47 秒卡点版</h3>
+              <div class="card-meta"><span>2026-11-06</span><span>128BPM</span></div>
+              <p>三段实拍 + 两段动漫切片，靠雨声做声桥，切换点落在镲片上。</p>
+              <div class="tags"><span class="tagchip">声桥衔接</span><span class="tagchip alt">调色 LUT</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/picker-cut2/420/260" width="420" height="260" loading="lazy" alt="游戏画面中角色跳跃与能量特效">
+            <div class="card-body">
+              <h3>射击游戏高光 30 秒三连击</h3>
+              <div class="card-meta"><span>2026-11-04</span><span>140BPM</span></div>
+              <p>击杀提示音与鼓点对齐，慢放 0.5 倍占 6 秒，回正时补 3 帧预卷。</p>
+              <div class="tags"><span class="tagchip">游戏录屏混剪</span><span class="tagchip teal">变速回正</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/picker-cut3/420/260" width="420" height="260" loading="lazy" alt="城市街景延时摄影与行人剪影">
+            <div class="card-body">
+              <h3>城市晨昏 62 秒延时拼接</h3>
+              <div class="card-meta"><span>2026-10-29</span><span>96BPM</span></div>
+              <p>延时与实拍交错，用同一色温的灰天空过渡，避免跳色。</p>
+              <div class="tags"><span class="tagchip">延时摄影拼接</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/picker-cut4/420/260" width="420" height="260" loading="lazy" alt="剪辑软件时间轴上的多轨道色块">
+            <div class="card-body">
+              <h3>影视台词混剪 · 五部片同主题</h3>
+              <div class="card-meta"><span>2026-10-25</span><span>无鼓点</span></div>
+              <p>以台词气口为节奏，接缝处留 12 帧静音，靠字幕位置统一视觉。</p>
+              <div class="tags"><span class="tagchip alt">台词气口对齐</span><span class="tagchip">字幕版式</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3 最新更新 -->
+      <section class="section" id="latest" aria-labelledby="h-latest">
+        <div class="section-head">
+          <h2 id="h-latest">最新更新</h2>
+          <span class="hint">按日期倒序，含素材替换与参数修订</span>
+        </div>
+        <ul class="tight-list">
+          <li><time datetime="2026-11-07">11月7日</time><a href="/#deep">《双十一预热混剪》BGM 卡点版：重排第 3 段镜头</a><span class="src">工程 v3</span></li>
+          <li><time datetime="2026-11-06">11月6日</time><a href="/#channels">修正转场时长标注：黑场由 10 帧改 8 帧</a><span class="src">勘误</span></li>
+          <li><time datetime="2026-11-05">11月5日</time><a href="/#guide">新增手机端竖屏 9:16 步骤稿</a><span class="src">体验指南</span></li>
+          <li><time datetime="2026-11-03">11月3日</time><a href="/#picks">收录雨天霓虹 47 秒卡点版与素材清单</a><span class="src">成片</span></li>
+          <li><time datetime="2026-10-31">10月31日</time><a href="/#deep">对照面板补充 Resolve 与 PR 代理文件耗时</a><span class="src">数据</span></li>
+          <li><time datetime="2026-10-27">10月27日</time><a href="/#news">LaVita 音频库更新 11 月免版税曲包</a><span class="src">资讯</span></li>
+        </ul>
+      </section>
+
+      <!-- 4 分类入口 -->
+      <section class="section" id="channels" aria-labelledby="h-channels">
+        <div class="section-head">
+          <h2 id="h-channels">分类入口</h2>
+          <span class="hint">按素材类型与制作环节拆分</span>
+        </div>
+        <div class="channel-grid">
+          <a class="channel" href="/#picks"><b>影视切片混剪</b><span>版权窗口、字幕版式、台词气口</span></a>
+          <a class="channel" href="/#picks"><b>游戏录屏混剪</b><span>击杀音对齐、慢放回正、HUD 遮挡</span></a>
+          <a class="channel" href="/#guide"><b>卡点节奏编排</b><span>BPM 换算、帧级落点、预卷帧数</span></a>
+          <a class="channel" href="/#deep"><b>转场与声桥</b><span>黑场、叠化、环境声过渡</span></a>
+          <a class="channel" href="/#deep"><b>调色与肤色统一</b><span>Lumetri、节点、灰天空过渡</span></a>
+          <a class="channel" href="/#guide"><b>竖屏 9:16 适配</b><span>重新构图、安全区、字幕半径</span></a>
+          <a class="channel" href="/#news"><b>免版税 BGM 库</b><span>曲包更新、授权范围、商用限制</span></a>
+          <a class="channel" href="/#guide"><b>工程代理与渲染</b><span>代理码率、分段导出、缓存清理</span></a>
+        </div>
+      </section>
+
+      <!-- 5 深度解析（唯一主体阅读区） -->
+      <section class="section feature" id="deep" aria-labelledby="h-deep">
+        <div class="feat-head">
+          <h2 id="h-deep">深度解析：卡点准不准，先看预卷帧数</h2>
+          <p>范围限定在 120—140BPM 与 90BPM 以下两类曲目；数据来自 10 月 1 日至 11 月 7 日归档的 71 条电子鼓点工程。</p>
+        </div>
+        <div class="feat-body">
+          <p>一条被反复引用的说法是“卡点靠手感，多剪就准”。这个结论只在单轨道、短片段时成立。多源混剪里，画面切换点与鼓点的错位通常不是手感问题，而是<b>预卷帧数</b>——切换动作之前预留的、让观众完成视觉识别的帧数——没有统一。</p>
+
+          <h3>判断一：预卷低于 5 帧，观众会读出“抢”</h3>
+          <div class="claim">
+            <b>可被反驳的判断：</b>120BPM 下，鼓点间隔 25 帧；若每次切换只给 3 帧预卷，连续 4 次切换后累计错位约 1 个八分音符，观感是抢拍而非干脆。把预卷抬到 6—8 帧，同素材重剪，站内 19 条复盘里有 14 条被原作者标记为“更顺”。
+          </div>
+          <p>反驳的空间在于曲目类型：Trap 的 808 滑音本身带延迟，预卷 10 帧也不算多；但 140BPM 的硬核电子，8 帧已经是上限，否则切换点会滑到上一个鼓点。</p>
+
+          <h3>案例时间线：《双十一预热混剪》三次重排</h3>
+          <ol class="timeline" style="margin-top:8px">
+            <li><time datetime="2026-10-28">10月28日 · v1</time><b>全长 58 秒，11 个切换点</b>。BGM 选 128BPM 曲目，切换点全部对齐第一拍，成片播放时第 4、第 7 个点被弹幕标记“慢半拍”。</li>
+            <li><time datetime="2026-11-02">11月2日 · v2</time><b>改用鼓点波形目视对位</b>。把波形放大到帧级，切换点从第一拍移到镲片，BGM 前奏延长 2 秒，慢半拍问题消失，但中段 3 个游戏镜头出现“闪”。</li>
+            <li><time datetime="2026-11-07">11月7日 · v3</time><b>补预卷 6 帧 + 声桥 8 帧黑场</b>。闪的问题靠黑场吸收，全片 54 秒，切换点 9 个，站内工时记录从 6 小时降到 4.5 小时。</li>
+          </ol>
+
+          <h3>说法差异：PR 与 Resolve 的时间轴对齐</h3>
+          <p>同一个 128BPM 曲目，Premiere Pro 2024 在 25fps 序列里显示的鼓点间隔是 00:00:00:25，DaVinci Resolve 18 显示 24 帧加 1 帧余量。差别来自两者的音频采样对齐方式；在 47 秒以上成片里，这个 1 帧差会在第 6 个切换点之后变成可见的 2 帧错位。处理方式是把 BGM 先按帧率重采样，再进时间轴。</p>
+
+          <div class="table-scroll">
+            <table class="compare">
+              <caption>同一组 30 秒素材、128BPM，两种软件路径的核对项（2026-10-31 实测）</caption>
+              <thead>
+                <tr><th scope="col">核对项</th><th scope="col">Premiere Pro 2024</th><th scope="col">DaVinci Resolve 18</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><b>代理文件生成耗时</b></td><td>4K 素材 12 分钟 / 10 条</td><td>11 分钟 / 10 条，后台占用更高</td></tr>
+                <tr><td><b>鼓点目视对齐</b></td><td>波形可放大到帧，直接拖</td><td>需切换到 Fairlight 页面对位</td></tr>
+                <tr><td><b>变速后音高校正</b></td><td>默认关闭，需手动勾选</td><td>默认开启，慢放会改变音色</td></tr>
+                <tr><td><b>导出 1080p 60fps</b></td><td>约 3 分 40 秒</td><td>约 3 分 05 秒</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>事实、回应与推测要分开</h3>
+          <p><b>事实：</b>11 月 6 日修订的转场标注，把黑场从 10 帧改为 8 帧，原因是 10 帧在 96BPM 曲目里跨了两个鼓点。<b>转述：</b>有创作者在评论区说“8 帧黑场听起来像漏了一拍”，这条属于个人听感，未做盲测。<b>推测：</b>若 11 月曲包普遍降到 100BPM 以下，8 帧可能重新偏长，但当前没有足够样本。</p>
+
+          <p>把判断拆开核对，会发现“手感”其实是三件事的合称：预卷帧数、声桥长度、变速回正补偿。三者都有可量化的区间，也就都能被反驳和修正。</p>
+        </div>
+      </section>
+
+      <!-- 6 体验指南 -->
+      <section class="section" id="guide" aria-labelledby="h-guide">
+        <div class="section-head">
+          <h2 id="h-guide">体验指南</h2>
+          <span class="hint">从拿到素材到导出成片的六步</span>
+        </div>
+        <ol class="steps">
+          <li><b>先定 BGM 与帧率。</b>25fps 序列配 128BPM，先算出每拍 25 帧；曲目定错，后面全部重排。</li>
+          <li><b>把素材按来源分轨。</b>影视、游戏、实拍各占一条视频轨，方便单独调色与降噪。</li>
+          <li><b>标出鼓点位置。</b>在音频轨打标记，间隔超过 8 帧的段落预留声桥。</li>
+          <li><b>排切换点，留 6—8 帧预卷。</b>慢放镜头回正时补 3 帧预卷，避免画面顿住。</li>
+          <li><b>统一色温与字幕位置。</b>灰天空过渡处把高光压 12，字幕底边固定在同一像素行。</li>
+          <li><b>分段导出。</b>47 秒以上成片按段落渲染，再合并，减少单次崩溃重来的成本。</li>
+        </ol>
+        <div class="quote-card" style="margin-top:var(--sp-3)">
+          <p>“竖屏版不是把横屏裁一刀。人物眼睛要落在上三分之一，字幕离底边留 180 像素，不然平台的信息条会盖住第二行。”</p>
+          <cite>—— 站内 9:16 适配步骤稿，2026-11-05 修订</cite>
+        </div>
+      </section>
+
+      <!-- 7 FAQ -->
+      <section class="section faq" id="faq" aria-labelledby="h-faq">
+        <div class="section-head">
+          <h2 id="h-faq">常见问答</h2>
+          <span class="hint">问题按搜索词整理</span>
+        </div>
+        <details>
+          <summary>多源素材混剪怎么统一色温？</summary>
+          <p>先给每条素材轨设一个基准白点，影视切片多偏 5200K，游戏录屏常偏 6500K，实拍按现场记录。统一到 5600K 后，再用 Lumetri 的高光 -12 压住过曝的天空，最后才做风格化 LUT，顺序反了会反复返工。</p>
+        </details>
+        <details>
+          <summary>120BPM 的曲子，切换点应该落在第几拍？</summary>
+          <p>落在镲片而不是底鼓。底鼓间隔 25 帧，镲片在反拍上有更清晰的瞬态，切换点对齐镲片，观众感知的“准”更明显。若曲目有 sidechain 压缩，镲片位置会整体后移 2—3 帧，需要按波形重新对。</p>
+        </details>
+        <details>
+          <summary>游戏录屏混剪的慢放回正为什么要补帧？</summary>
+          <p>0.5 倍慢放 6 秒，回正时时间轴会少 3 秒内容，直接切回原速会出现一次视觉跳跃。补 3 帧预卷相当于给观众一个视觉缓冲，配合 6dB 的环境声压低，跳跃感基本消失。</p>
+        </details>
+        <details>
+          <summary>影视切片混剪的版权窗口怎么判断？</summary>
+          <p>看片段是否构成实质性替代：单条切片超过 15 秒、连续使用同一部片超过 3 段，风险明显上升。站内工程模板里标注了每段的来源与时长，方便逐条核对，不做授权承诺。</p>
+        </details>
+        <details>
+          <summary>手机端剪 9:16 混剪，导出参数怎么设？</summary>
+          <p>1080×1920、30fps、码率 12—16Mbps 足够；BGM 单独导一条 48kHz 音轨再合并，比直接内录清晰。字幕字号不小于 42，离底边 180 像素，避开平台信息条。</p>
+        </details>
+      </section>
+
+      <!-- 8 用户评论 -->
+      <section class="section" id="comments" aria-labelledby="h-comments">
+        <div class="section-head">
+          <h2 id="h-comments">用户评论</h2>
+          <span class="hint">保留原文措辞，含批评</span>
+        </div>
+        <div class="comments">
+          <article class="comment">
+            <header><b>阿澈剪片</b><time datetime="2026-11-07">11月7日</time><span class="chip">针对 v3</span></header>
+            <p>《双十一预热混剪》v3 的第 5 个切换点还是偏了半拍，镲片在 00:00:31:14，你标的是 31:12。听三遍都这么觉得。</p>
+            <div class="reply">作者回复：已按 31:14 重标，误差来自音频轨重采样。</div>
+          </article>
+          <article class="comment">
+            <header><b>老麦</b><time datetime="2026-11-06">11月6日</time></header>
+            <p>8 帧黑场那条修订挺实在。之前照 10 帧做，96BPM 的曲子里确实跨拍了，一直以为是自己手抖。</p>
+          </article>
+          <article class="comment">
+            <header><b>南屿</b><time datetime="2026-11-05">11月5日</time><span class="chip">中性</span></header>
+            <p>对照面板只测了 30 秒素材，47 秒以上的代理耗时没覆盖。我这边 10 条 4K 用了 19 分钟，跟表里的 12 分钟差不少。</p>
+          </article>
+          <article class="comment">
+            <header><b>Kite_96</b><time datetime="2026-11-04">11月4日</time></header>
+            <p>射击游戏那条慢放回正补 3 帧的方法好用，击杀提示音终于不闷了。不过 HUD 遮挡还是没解决，右下角血条一直在。</p>
+          </article>
+          <article class="comment">
+            <header><b>橘子汽水</b><time datetime="2026-11-02">11月2日</time><span class="chip">吐槽</span></header>
+            <p>预卷 6—8 帧这个区间写得太窄。做 90BPM 以下 Lo-fi 的时候，我留 12 帧反而更舒服，别一刀切。</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- 9 相关资讯 -->
+      <section class="section" id="news" aria-labelledby="h-news">
+        <div class="section-head">
+          <h2 id="h-news">相关资讯</h2>
+          <span class="hint">来源与日期单列，不复述标题</span>
+        </div>
+        <ul class="tight-list">
+          <li><time datetime="2026-10-27">10月27日</time><span>LaVita 音频库更新 11 月免版税曲包，新增 38 首 100—128BPM 曲目，商用需署名</span><span class="src">音频库公告</span></li>
+          <li><time datetime="2026-10-30">10月30日</time><span>Premiere Pro 2024 发布 24.6 更新，修复 25fps 序列下音频标记漂移</span><span class="src">版本说明</span></li>
+          <li><time datetime="2026-11-01">11月1日</time><span>某短视频平台调整竖屏安全区，底部信息条高度增加 24 像素</span><span class="src">平台规则页</span></li>
+          <li><time datetime="2026-11-04">11月4日</time><span>DaVinci Resolve 18 的 Fairlight 页面新增批量重采样，可直接按帧率对齐 BGM</span><span class="src">更新日志</span></li>
+        </ul>
+      </section>
+
+      <!-- 10 相关推荐 -->
+      <section class="section" id="reco" aria-labelledby="h-reco">
+        <div class="section-head">
+          <h2 id="h-reco">相关推荐</h2>
+          <span class="hint">按长尾词组织，点进对应板块</span>
+        </div>
+        <div class="tag-cloud" style="gap:8px">
+          <a href="/#deep">混剪卡点预卷帧数怎么定</a>
+          <a href="/#guide">游戏录屏慢放回正补帧</a>
+          <a href="/#deep">影视切片台词气口对齐</a>
+          <a href="/#guide">竖屏 9:16 字幕安全区</a>
+          <a href="/#deep">多源素材色温统一到 5600K</a>
+          <a href="/#news">免版税 BGM 曲包商用授权</a>
+          <a href="/#guide">4K 代理文件分段导出</a>
+          <a href="/#picks">雨天霓虹声桥衔接</a>
+        </div>
+      </section>
+
+      <!-- 11 补充板块：榜单 + 可信度分层 -->
+      <section class="section" id="board" aria-labelledby="h-board">
+        <div class="section-head">
+          <h2 id="h-board">本周复用榜与可信度分层</h2>
+          <span class="hint">榜单按工程被二次引用次数；分层按来源可核对程度</span>
+        </div>
+        <div class="overview" style="grid-template-columns:minmax(0,1fr) minmax(0,1.1fr)">
+          <div>
+            <ol class="rank-list">
+              <li><span><a href="/#picks">雨天霓虹 47 秒卡点版</a><small>被引用 14 次 · 声桥结构最常被搬</small></span></li>
+              <li><span><a href="/#picks">射击游戏高光 30 秒三连击</a><small>被引用 11 次 · 慢放回正参数完整</small></span></li>
+              <li><span><a href="/#deep">双十一预热混剪 v3</a><small>被引用 9 次 · 三次重排记录可查</small></span></li>
+            </ol>
+          </div>
+          <div class="trust">
+            <div class="t1"><b>可核对</b><p>带时间码、软件版本、导出参数，能逐条复现。</p></div>
+            <div class="t2"><b>待验证</b><p>有日期与账号，但缺原始工程或波形截图。</p></div>
+            <div class="t3"><b>仅听感</b><p>评论区个人判断，未做盲测，仅作线索。</p></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ============ 侧栏 ============ -->
+    <aside class="side" aria-label="侧栏导航与索引">
+      <div class="side-card">
+        <h2>栏目导航</h2>
+        <ul class="side-nav" id="side-nav">
+          <li><a href="/#overview">领域概览</a></li>
+          <li><a href="/#picks">精选成片推荐</a></li>
+          <li><a href="/#latest">最新更新</a></li>
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#reco">相关推荐</a></li>
+          <li><a href="/#board">复用榜与可信度</a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h2>今天新增的参数</h2>
+        <ul class="rank-list" style="counter-reset:none">
+          <li style="grid-template-columns:1fr"><span>128BPM 曲目，预卷改为 6 帧<small>11月7日 · v3 工程</small></span></li>
+          <li style="grid-template-columns:1fr"><span>黑场 8 帧，接游戏录屏<small>11月6日 · 勘误</small></span></li>
+          <li style="grid-template-columns:1fr"><span>竖屏字幕离底边 180 像素<small>11月5日 · 适配稿</small></span></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h2>常搜长尾词</h2>
+        <div class="tag-cloud">
+          <a href="/#deep">预卷帧数</a>
+          <a href="/#guide">慢放回正</a>
+          <a href="/#deep">声桥衔接</a>
+          <a href="/#guide">9:16 安全区</a>
+          <a href="/#news">免版税曲包</a>
+          <a href="/#deep">色温统一</a>
+          <a href="/#guide">代理文件</a>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <b>混剪pmvyandex</b>
+        <p>把多源素材的卡点、转场与调色拆成可核对的参数，方便二次复现。</p>
+      </div>
+      <div>
+        <h2>成片与拆解</h2>
+        <ul class="foot-list">
+          <li><a href="/#picks">精选成片推荐</a></li>
+          <li><a href="/#deep">深度解析</a></li>
+          <li><a href="/#board">本周复用榜</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>方法与工具</h2>
+        <ul class="foot-list">
+          <li><a href="/#guide">体验指南</a></li>
+          <li><a href="/#channels">分类入口</a></li>
+          <li><a href="/#faq">常见问答</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>更新与互动</h2>
+        <ul class="foot-list">
+          <li><a href="/#latest">最新更新</a></li>
+          <li><a href="/#news">相关资讯</a></li>
+          <li><a href="/#comments">用户评论</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>站内工程参数、素材清单、播放与引用数字均为示例数据，用于展示拆解方法，不代表真实统计。</span>
+      <span class="upd">页面更新：2026-11-08（对应「最新更新」11月7日 v3 条目）</span>
+      <span>© 2026 混剪pmvyandex</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="to-top" type="button" aria-label="回到顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn=document.getElementById('menu-btn');
+  var mobileNav=document.getElementById('mobile-nav');
+  if(menuBtn&&mobileNav){
+    menuBtn.addEventListener('click',function(){
+      var open=mobileNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    mobileNav.addEventListener('click',function(e){
+      if(e.target.tagName==='A'){
+        mobileNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var toTop=document.getElementById('to-top');
+  if(toTop){
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>420){toTop.classList.add('show');}
+      else{toTop.classList.remove('show');}
+    },{passive:true});
+    toTop.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+
+  var navLinks=Array.prototype.slice.call(document.querySelectorAll('#side-nav a'));
+  var targets=navLinks.map(function(a){
+    var id=a.getAttribute('href').replace('/#','');
+    return document.getElementById(id);
+  });
+  if('IntersectionObserver' in window && targets.length){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          navLinks.forEach(function(a){a.classList.remove('active');});
+          var idx=targets.indexOf(en.target);
+          if(idx>-1){navLinks[idx].classList.add('active');}
+        }
+      });
+    },{rootMargin:'-120px 0px -60% 0px',threshold:0});
+    targets.forEach(function(t){if(t){io.observe(t);}});
+  }
+
+  var input=document.getElementById('site-search');
+  var btn=document.getElementById('search-btn');
+  var msg=document.getElementById('search-msg');
+  var nodes=Array.prototype.slice.call(document.querySelectorAll('main h2, main h3, main p, main li, main summary, main .tagchip'));
+
+  function doSearch(){
+    var q=(input.value||'').trim();
+    if(!q){msg.textContent='请输入素材、成片或参数关键词。';return;}
+    var hit=[];
+    nodes.forEach(function(n){
+      var txt=(n.textContent||'');
+      if(txt.indexOf(q)>-1){hit.push(n);}
+    });
+    if(hit.length===0){
+      msg.textContent='没有找到与「'+q+'」匹配的条目，换用「卡点」「预卷」「竖屏」等词再试。';
+      return;
+    }
+    msg.textContent='找到 '+hit.length+' 处匹配，已定位到第一处。';
+    hit[0].scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  if(btn){btn.addEventListener('click',doSearch);}
+  if(input){
+    input.addEventListener('keydown',function(e){
+      if(e.key==='Enter'){e.preventDefault();doSearch();}
+    });
+  }
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"混剪pmvyandex",
+  "inLanguage":"zh-CN",
+  "description":"多源素材混剪的成片拆解、卡点节奏与调色方案索引。"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "inLanguage":"zh-CN",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"多源素材混剪怎么统一色温？",
+      "acceptedAnswer":{"@type":"Answer","text":"先给每条素材轨设基准白点，影视切片多偏5200K，游戏录屏常偏6500K，实拍按现场记录，统一到5600K后再用Lumetri高光-12压过曝，最后做风格化LUT。"}
+    },
+    {
+      "@type":"Question",
+      "name":"120BPM的曲子，切换点应该落在第几拍？",
+      "acceptedAnswer":{"@type":"Answer","text":"落在镲片而不是底鼓，镲片反拍瞬态更清晰，切换点对齐镲片感知更准；若有sidechain压缩，镲片会整体后移2到3帧。"}
+    },
+    {
+      "@type":"Question",
+      "name":"游戏录屏混剪的慢放回正为什么要补帧？",
+      "acceptedAnswer":{"@type":"Answer","text":"0.5倍慢放6秒会让时间轴少3秒内容，直接回正出现视觉跳跃；补3帧预卷并压低环境声6dB可消除跳跃感。"}
+    },
+    {
+      "@type":"Question",
+      "name":"影视切片混剪的版权窗口怎么判断？",
+      "acceptedAnswer":{"@type":"Answer","text":"看是否构成实质性替代：单条切片超过15秒、同一部片连续使用超过3段，风险明显上升；工程模板标注每段来源与时长供逐条核对。"}
+    },
+    {
+      "@type":"Question",
+      "name":"手机端剪9:16混剪，导出参数怎么设？",
+      "acceptedAnswer":{"@type":"Answer","text":"1080×1920、30fps、码率12到16Mbps，BGM单独导出48kHz音轨再合并；字幕不小于42号，离底边180像素。"}
+    }
+  ]
+}
+</script>
+
+</body>
+              </html>
