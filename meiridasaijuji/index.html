@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日大赛聚集地爆料-赛事情报与选手追踪</title>
+<meta name="description" content="每日大赛聚集地爆料汇总线上线下赛事的报名节点、赛制变化与选手动态，覆盖电竞赛、写作赛、设计赛、辩论赛等赛场信息，并整理赛果复盘与参赛经验，帮助你在开赛前摸清规则与对手。">
+<meta name="keywords" content="每日大赛 聚集地爆料">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f2e4c'/%3E%3Cpath d='M14 42 L26 22 L34 34 L42 18 L52 42' fill='none' stroke='%23f5b13d' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='42' cy='18' r='3.5' fill='%23f5b13d'/%3E%3C/svg%3E">
+<style>
+:root{
+  --c-bg:#f7f5f0;
+  --c-surface:#ffffff;
+  --c-ink:#1d2733;
+  --c-ink-2:#4b5a6a;
+  --c-ink-3:#7a8794;
+  --c-primary:#0f2e4c;
+  --c-primary-2:#1b4a76;
+  --c-accent:#f5b13d;
+  --c-accent-soft:#fdf0d6;
+  --c-line:#e2ddd2;
+  --c-line-2:#d3ccbe;
+  --c-ok:#2e7d5b;
+  --c-warn:#a4562b;
+  --c-tag:#eef2f6;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --shadow-s:0 1px 2px rgba(29,39,51,.06);
+  --shadow-m:0 4px 14px rgba(29,39,51,.08);
+  --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;
+  --fs-xs:12px;--fs-s:13px;--fs-m:15px;--fs-l:17px;--fs-xl:21px;--fs-2xl:27px;--fs-3xl:36px;
+  --sticky-h:96px;
+  --font:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:var(--sticky-h);}
+body{
+  margin:0;font-family:var(--font);color:var(--c-ink);background:var(--c-bg);
+  font-size:var(--fs-m);line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:var(--c-primary-2);text-decoration:none;}
+a:hover{text-decoration:underline;}
+h1,h2,h3,h4{margin:0;line-height:1.35;font-weight:700;}
+p{margin:0 0 var(--sp-3);}
+ul,ol{margin:0 0 var(--sp-3);padding-left:1.25em;}
+li{margin-bottom:var(--sp-2);}
+button{font-family:inherit;font-size:inherit;cursor:pointer;}
+:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px;border-radius:3px;}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 var(--sp-5);}
+
+/* ===== 吸顶公告条 + 页头 ===== */
+.sticky-shell{position:sticky;top:0;z-index:60;}
+.notice-bar{
+  background:var(--c-primary);color:#e9eef3;font-size:var(--fs-s);
+  padding:6px var(--sp-4);
+}
+.notice-bar .wrap{display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-4);align-items:center;justify-content:center;padding:0;}
+.notice-bar b{color:var(--c-accent);font-weight:600;letter-spacing:.02em;}
+.notice-bar .dot{width:6px;height:6px;border-radius:50%;background:var(--c-accent);flex:none;}
+header.site-head{
+  background:rgba(255,255,255,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--c-line);box-shadow:var(--shadow-s);
+}
+.head-inner{display:flex;align-items:center;gap:var(--sp-4);padding:var(--sp-3) 0;}
+.brand{display:flex;align-items:center;gap:var(--sp-3);flex:none;}
+.brand-mark{width:38px;height:38px;flex:none;}
+.brand-text{display:flex;flex-direction:column;line-height:1.2;}
+.brand-text .bn{font-size:var(--fs-l);font-weight:700;letter-spacing:.02em;color:var(--c-primary);}
+.brand-text .bs{font-size:11px;color:var(--c-ink-3);letter-spacing:.08em;}
+nav.theme-nav{margin-left:auto;}
+nav.theme-nav ul{display:flex;gap:var(--sp-1);list-style:none;margin:0;padding:0;flex-wrap:wrap;}
+nav.theme-nav a{
+  display:block;padding:7px 11px;border-radius:var(--radius-s);font-size:var(--fs-s);
+  color:var(--c-ink-2);font-weight:500;
+}
+nav.theme-nav a:hover{background:var(--c-tag);color:var(--c-primary);text-decoration:none;}
+.head-tools{display:flex;align-items:center;gap:var(--sp-3);flex:none;}
+.search-box{position:relative;display:flex;align-items:center;}
+.search-box input{
+  width:170px;padding:7px 30px 7px 11px;border:1px solid var(--c-line-2);border-radius:var(--radius-s);
+  font-size:var(--fs-s);background:#fff;color:var(--c-ink);transition:width .18s;
+}
+.search-box input:focus{width:210px;border-color:var(--c-primary-2);outline:none;}
+.search-box button{
+  position:absolute;right:2px;top:50%;transform:translateY(-50%);
+  border:none;background:none;padding:5px;line-height:1;color:var(--c-ink-3);
+}
+.search-box button:hover{color:var(--c-primary);}
+.search-status{
+  position:absolute;top:calc(100% + 6px);right:0;width:250px;background:#fff;border:1px solid var(--c-line);
+  border-radius:var(--radius-m);box-shadow:var(--shadow-m);padding:var(--sp-3);font-size:var(--fs-s);
+  color:var(--c-ink-2);display:none;z-index:70;
+}
+.search-status.show{display:block;}
+.search-status mark{background:var(--c-accent-soft);color:var(--c-ink);}
+.menu-btn{
+  display:none;border:1px solid var(--c-line-2);background:#fff;border-radius:var(--radius-s);
+  padding:7px 10px;color:var(--c-primary);font-size:var(--fs-s);font-weight:600;
+}
+
+/* ===== 首屏 ===== */
+.hero{
+  position:relative;overflow:hidden;background:var(--c-primary);color:#eaf0f5;
+  border-bottom:3px solid var(--c-accent);
+}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:var(--sp-7);align-items:center;padding-top:var(--sp-7);padding-bottom:var(--sp-7);}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-size:var(--fs-s);letter-spacing:.14em;color:var(--c-accent);margin-bottom:var(--sp-3);}
+.hero-kicker .bar{width:28px;height:2px;background:var(--c-accent);}
+.hero h1{font-size:var(--fs-3xl);letter-spacing:.01em;color:#fff;margin-bottom:var(--sp-3);}
+.hero .lede{font-size:var(--fs-l);color:#c6d4e1;max-width:33em;margin-bottom:var(--sp-5);}
+.hero-actions{display:flex;flex-wrap:wrap;gap:var(--sp-3);}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:var(--radius-s);
+  font-size:var(--fs-m);font-weight:600;transition:transform .15s,background .15s;border:1px solid transparent;
+}
+.btn-primary{background:var(--c-accent);color:#26200f;}
+.btn-primary:hover{background:#ffc25a;text-decoration:none;transform:translateY(-2px);}
+.btn-ghost{border-color:rgba(255,255,255,.36);color:#eaf0f5;}
+.btn-ghost:hover{background:rgba(255,255,255,.09);text-decoration:none;transform:translateY(-2px);}
+.hero-facts{display:flex;gap:var(--sp-5);margin-top:var(--sp-5);flex-wrap:wrap;font-size:var(--fs-s);color:#9fb3c6;}
+.hero-facts b{display:block;font-size:var(--fs-xl);color:#fff;font-weight:700;}
+.hero-art{position:relative;height:320px;}
+.hero-art svg{width:100%;height:100%;}
+.hero-bgline{position:absolute;inset:0;background:
+  radial-gradient(600px 300px at 90% 0%,rgba(245,177,61,.16),transparent 70%),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.045) 0 1px,transparent 1px 46px);
+  z-index:1;}
+
+/* ===== 主布局 ===== */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--sp-6);align-items:start;padding-top:var(--sp-6);padding-bottom:var(--sp-8);}
+main{min-width:0;}
+section.block{margin-bottom:var(--sp-7);}
+.sec-head{display:flex;align-items:baseline;gap:var(--sp-3);flex-wrap:wrap;margin-bottom:var(--sp-4);border-bottom:2px solid var(--c-line-2);padding-bottom:var(--sp-2);}
+.sec-head h2{font-size:var(--fs-2xl);color:var(--c-primary);}
+.sec-head .sub{font-size:var(--fs-s);color:var(--c-ink-3);}
+.sec-head .more{margin-left:auto;font-size:var(--fs-s);}
+
+/* 概览：对照面板 */
+.overview-panel{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3);}
+.ov-cell{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);padding:var(--sp-4);box-shadow:var(--shadow-s);}
+.ov-cell h3{font-size:var(--fs-m);color:var(--c-primary);margin-bottom:6px;}
+.ov-cell p{font-size:var(--fs-s);color:var(--c-ink-2);margin:0;}
+.ov-num{font-size:var(--fs-2xl);font-weight:700;color:var(--c-primary-2);line-height:1.1;}
+.ov-num small{font-size:var(--fs-s);color:var(--c-ink-3);font-weight:500;margin-left:4px;}
+
+/* 精选推荐：网格卡片 */
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--sp-4);}
+.card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-s);display:flex;flex-direction:column;transition:transform .15s,box-shadow .15s;}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-m);}
+.card img{width:100%;height:150px;object-fit:cover;}
+.card .body{padding:var(--sp-4);display:flex;flex-direction:column;gap:6px;}
+.card .tag{font-size:11px;font-weight:600;color:var(--c-warn);background:var(--c-accent-soft);padding:2px 8px;border-radius:100px;align-self:flex-start;}
+.card h3{font-size:var(--fs-l);color:var(--c-primary);}
+.card p{font-size:var(--fs-s);color:var(--c-ink-2);margin:0;}
+.card .meta{font-size:12px;color:var(--c-ink-3);display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;}
+
+/* 最新更新：时间线 */
+.timeline{list-style:none;padding:0;margin:0;border-left:2px solid var(--c-line-2);margin-left:8px;}
+.timeline li{position:relative;padding:0 0 var(--sp-4) var(--sp-5);}
+.timeline li::before{content:"";position:absolute;left:-6px;top:7px;width:10px;height:10px;border-radius:50%;background:var(--c-accent);border:2px solid var(--c-bg);}
+.timeline time{font-size:12px;font-weight:700;color:var(--c-primary-2);letter-spacing:.04em;}
+.timeline .t-title{font-weight:600;font-size:var(--fs-m);color:var(--c-ink);}
+.timeline p{font-size:var(--fs-s);color:var(--c-ink-2);margin:2px 0 0;}
+
+/* 分类入口：标签索引 */
+.tag-index{display:flex;flex-wrap:wrap;gap:var(--sp-2);}
+.tag-index a{
+  display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border:1px solid var(--c-line-2);
+  border-radius:100px;background:var(--c-surface);font-size:var(--fs-s);color:var(--c-ink-2);
+}
+.tag-index a:hover{background:var(--c-primary);color:#fff;border-color:var(--c-primary);text-decoration:none;}
+.tag-index a span{font-size:11px;color:var(--c-ink-3);}
+.tag-index a:hover span{color:#c6d4e1;}
+
+/* 深度解析：分栏正文 */
+.deep{border:1px solid var(--c-line);background:var(--c-surface);border-radius:var(--radius-l);padding:var(--sp-5);box-shadow:var(--shadow-s);}
+.deep-lead{font-size:var(--fs-l);color:var(--c-ink);border-left:4px solid var(--c-accent);padding-left:var(--sp-4);margin-bottom:var(--sp-5);}
+.deep h3{font-size:var(--fs-l);color:var(--c-primary);margin:var(--sp-5) 0 var(--sp-2);}
+.deep h3:first-of-type{margin-top:0;}
+.deep p{font-size:var(--fs-m);color:#2b3846;}
+.deep .cols{columns:2;column-gap:var(--sp-6);}
+.deep .cols p{break-inside:avoid;}
+.checkline{background:#f2f6fa;border:1px dashed var(--c-line-2);border-radius:var(--radius-m);padding:var(--sp-4);margin:var(--sp-4) 0;font-size:var(--fs-s);}
+.checkline strong{color:var(--c-primary);}
+.checkline table{width:100%;border-collapse:collapse;margin-top:var(--sp-2);font-size:var(--fs-s);}
+.checkline th,.checkline td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--c-line);vertical-align:top;}
+.checkline th{color:var(--c-ink-3);font-weight:600;font-size:12px;}
+
+/* 体验指南：编号步骤 */
+.steps{list-style:none;counter-reset:st;padding:0;margin:0;display:grid;gap:var(--sp-3);}
+.steps li{
+  counter-increment:st;position:relative;background:var(--c-surface);border:1px solid var(--c-line);
+  border-radius:var(--radius-m);padding:var(--sp-4) var(--sp-4) var(--sp-4) 56px;box-shadow:var(--shadow-s);
+}
+.steps li::before{
+  content:counter(st,decimal-leading-zero);position:absolute;left:var(--sp-4);top:var(--sp-4);
+  width:28px;height:28px;border-radius:50%;background:var(--c-primary);color:var(--c-accent);
+  font-size:var(--fs-s);font-weight:700;display:flex;align-items:center;justify-content:center;
+}
+.steps h3{font-size:var(--fs-m);color:var(--c-primary);margin-bottom:2px;}
+.steps p{font-size:var(--fs-s);color:var(--c-ink-2);margin:0;}
+
+/* FAQ 折叠 */
+.faq details{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);padding:var(--sp-3) var(--sp-4);margin-bottom:var(--sp-2);box-shadow:var(--shadow-s);}
+.faq summary{cursor:pointer;font-weight:600;color:var(--c-primary);font-size:var(--fs-m);list-style:none;display:flex;justify-content:space-between;gap:var(--sp-3);}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"＋";color:var(--c-ink-3);font-weight:400;flex:none;}
+.faq details[open] summary::after{content:"－";}
+.faq .ans{font-size:var(--fs-s);color:var(--c-ink-2);padding-top:var(--sp-2);}
+
+/* 评论 */
+.comments{display:grid;gap:var(--sp-3);}
+.comment{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);padding:var(--sp-4);}
+.comment .who{display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-s);color:var(--c-ink-3);margin-bottom:6px;}
+.avatar{width:28px;height:28px;border-radius:50%;background:var(--c-primary-2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none;}
+.comment .who b{color:var(--c-ink);font-weight:600;}
+.comment p{font-size:var(--fs-s);color:var(--c-ink-2);margin:0;}
+
+/* 相关资讯：紧凑列表 */
+.news-list{list-style:none;padding:0;margin:0;}
+.news-list li{display:flex;gap:var(--sp-3);padding:var(--sp-3) 0;border-bottom:1px solid var(--c-line);align-items:baseline;}
+.news-list time{font-size:12px;color:var(--c-ink-3);flex:none;font-variant-numeric:tabular-nums;}
+.news-list .nt{font-size:var(--fs-m);color:var(--c-ink);}
+.news-list .nt:hover{color:var(--c-primary-2);}
+.news-list .src{font-size:12px;color:var(--c-ink-3);margin-left:auto;flex:none;}
+
+/* 补充：榜单 */
+.rank{list-style:none;counter-reset:rk;padding:0;margin:0;background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);overflow:hidden;}
+.rank li{counter-increment:rk;display:flex;align-items:center;gap:var(--sp-3);padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--c-line);}
+.rank li:last-child{border-bottom:none;}
+.rank li::before{content:counter(rk);width:24px;flex:none;font-weight:700;color:var(--c-ink-3);font-size:var(--fs-s);text-align:center;}
+.rank li:nth-child(-n+3)::before{color:var(--c-warn);}
+.rank .rk-name{font-weight:600;color:var(--c-ink);font-size:var(--fs-s);}
+.rank .rk-desc{font-size:12px;color:var(--c-ink-3);}
+.rank .rk-score{margin-left:auto;font-size:var(--fs-s);font-weight:700;color:var(--c-primary-2);flex:none;}
+
+/* 图片条目 */
+.media-item{display:grid;grid-template-columns:180px minmax(0,1fr);gap:var(--sp-4);background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);overflow:hidden;box-shadow:var(--shadow-s);}
+.media-item img{width:100%;height:100%;object-fit:cover;min-height:130px;}
+.media-item .body{padding:var(--sp-4) var(--sp-4) var(--sp-4) 0;}
+.media-item h3{font-size:var(--fs-l);color:var(--c-primary);margin-bottom:4px;}
+.media-item p{font-size:var(--fs-s);color:var(--c-ink-2);margin:0 0 6px;}
+
+/* 侧栏 */
+aside.side{position:sticky;top:calc(var(--sticky-h) + 16px);display:flex;flex-direction:column;gap:var(--sp-4);}
+.side-card{background:var(--c-surface);border:1px solid var(--c-line);border-radius:var(--radius-m);padding:var(--sp-4);box-shadow:var(--shadow-s);}
+.side-card h2{font-size:var(--fs-m);color:var(--c-primary);margin-bottom:var(--sp-3);padding-bottom:var(--sp-2);border-bottom:1px solid var(--c-line);}
+.side-nav ul{list-style:none;margin:0;padding:0;}
+.side-nav a{display:block;padding:6px 8px;border-radius:var(--radius-s);font-size:var(--fs-s);color:var(--c-ink-2);border-left:3px solid transparent;}
+.side-nav a:hover{background:var(--c-tag);text-decoration:none;}
+.side-nav a.active{background:var(--c-accent-soft);color:var(--c-primary);font-weight:600;border-left-color:var(--c-accent);}
+.side-note{font-size:var(--fs-s);color:var(--c-ink-2);margin:0;}
+.side-note b{color:var(--c-primary);}
+.mini-list{list-style:none;margin:0;padding:0;font-size:var(--fs-s);}
+.mini-list li{padding:6px 0;border-bottom:1px dashed var(--c-line);}
+.mini-list li:last-child{border-bottom:none;}
+.mini-list a{color:var(--c-ink-2);}
+.mini-list .m-meta{display:block;font-size:11px;color:var(--c-ink-3);}
+
+/* 页尾 */
+footer.site-foot{background:var(--c-primary);color:#b9c9d8;padding:var(--sp-7) 0 var(--sp-5);font-size:var(--fs-s);}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:var(--sp-5);}
+.foot-brand .bf{display:flex;align-items:center;gap:10px;margin-bottom:var(--sp-3);}
+.foot-brand .bf span{font-size:var(--fs-l);font-weight:700;color:#fff;}
+.foot-brand p{color:#9fb3c6;margin:0 0 var(--sp-3);}
+footer h3{font-size:var(--fs-s);color:#fff;margin-bottom:var(--sp-3);letter-spacing:.06em;}
+footer ul{list-style:none;padding:0;margin:0;}
+footer li{margin-bottom:6px;}
+footer a{color:#b9c9d8;}
+footer a:hover{color:var(--c-accent);text-decoration:none;}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.14);margin-top:var(--sp-6);padding-top:var(--sp-4);display:flex;flex-wrap:wrap;gap:var(--sp-3);justify-content:space-between;color:#8fa4b8;font-size:12px;}
+
+/* 回到顶部 */
+.to-top{
+  position:fixed;right:20px;bottom:24px;width:44px;height:44px;border-radius:50%;
+  border:none;background:var(--c-primary);color:var(--c-accent);font-size:18px;line-height:1;
+  box-shadow:var(--shadow-m);display:none;align-items:center;justify-content:center;z-index:80;
+}
+.to-top.show{display:flex;}
+.to-top:hover{background:var(--c-primary-2);}
+
+@media (max-width:1024px){
+  .layout{grid-template-columns:1fr;}
+  aside.side{position:static;order:2;}
+  main{order:1;}
+  .hero .wrap{grid-template-columns:1fr;gap:var(--sp-5);}
+  .hero-art{height:220px;order:-1;}
+  .overview-panel{grid-template-columns:repeat(2,1fr);}
+  .foot-grid{grid-template-columns:1fr 1fr;}
+  .head-tools .search-box{display:none;}
+}
+@media (max-width:720px){
+  .wrap{padding:0 var(--sp-4);}
+  .menu-btn{display:inline-block;}
+  .head-inner{flex-wrap:wrap;}
+  nav.theme-nav{flex-basis:100%;margin-left:0;display:none;}
+  nav.theme-nav.open{display:block;}
+  nav.theme-nav ul{flex-direction:column;gap:0;border-top:1px solid var(--c-line);padding-top:var(--sp-2);}
+  nav.theme-nav a{padding:9px 8px;}
+  .head-tools{margin-left:auto;}
+  .hero h1{font-size:var(--fs-2xl);}
+  .hero-facts{gap:var(--sp-4);}
+  .card-grid{grid-template-columns:1fr;}
+  .overview-panel{grid-template-columns:1fr;}
+  .deep .cols{columns:1;}
+  .media-item{grid-template-columns:1fr;}
+  .media-item img{height:160px;}
+  .media-item .body{padding:var(--sp-4);}
+  .foot-grid{grid-template-columns:1fr;}
+  .news-list li{flex-wrap:wrap;gap:2px 10px;}
+  .news-list .src{margin-left:0;}
+  .to-top{right:12px;bottom:86px;width:40px;height:40px;}
+  .search-status{width:210px;}
+}
+@media (max-width:380px){
+  .hero h1{font-size:24px;}
+  .hero-facts b{font-size:var(--fs-l);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none!important;animation:none!important;}
+  .card:hover,.btn:hover{transform:none;}
+}
+</style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+<div class="sticky-shell">
+  <div class="notice-bar" role="status" aria-label="最新公告">
+    <div class="wrap">
+      <span class="dot" aria-hidden="true"></span>
+      <span><b>每日大赛聚集地爆料</b> 公告：11月7日全国大学生电子设计赛省赛拟题推迟至11月10日；11月6日“城市杯”高校辩论联赛复赛对阵表已公示于赛事官网，赛程变化以组委会二次通知为准。</span>
+    </div>
+  </div>
+  <header class="site-head">
+    <div class="wrap head-inner">
+      <a class="brand" href="/#top" aria-label="返回首页">
+        <svg class="brand-mark" viewBox="0 0 64 64" role="img" aria-label="赛事信号标识">
+          <rect width="64" height="64" rx="14" fill="#0f2e4c"/>
+          <path d="M14 42 L26 22 L34 34 L42 18 L52 42" fill="none" stroke="#f5b13d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="42" cy="18" r="3.5" fill="#f5b13d"/>
+        </svg>
+        <span class="brand-text">
+          <span class="bn">每日大赛 聚集地爆料</span>
+          <span class="bs">赛事情报 · 选手动态</span>
+        </span>
+      </a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="themeNav">栏目菜单</button>
+      <nav class="theme-nav" id="themeNav" aria-label="主题导航">
+        <ul>
+          <li><a href="/#overview">赛事情报概览</a></li>
+          <li><a href="/#picks">本周精选赛题</a></li>
+          <li><a href="/#updates">最新赛事动态</a></li>
+          <li><a href="/#channels">赛道分类入口</a></li>
+          <li><a href="/#deep">赛制深度解析</a></li>
+          <li><a href="/#guide">参赛准备指南</a></li>
+          <li><a href="/#faq">常见疑问</a></li>
+        </ul>
+      </nav>
+      <div class="head-tools">
+        <div class="search-box">
+          <label for="siteSearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">在页面内查找赛事关键词</label>
+          <input id="siteSearch" type="search" placeholder="查赛项 / 选手 / 规则" autocomplete="off">
+          <button type="button" id="searchBtn" aria-label="执行页面内查找">🔍</button>
+          <div class="search-status" id="searchStatus" role="status" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+
+<div class="hero" id="top">
+  <div class="hero-bgline" aria-hidden="true"></div>
+  <div class="wrap">
+    <div>
+      <p class="hero-kicker"><span class="bar"></span>赛事情报站 · 2026年11月8日更新</p>
+      <h1>每日大赛 聚集地爆料</h1>
+      <p class="lede">追踪电竞赛、写作赛、设计赛与辩论赛的报名节点、赛制改动和选手动向。11月8日当天可查省赛拟题、复赛抽签与三场线上赛果回放，内容按赛事日历排序。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/#updates">看今日赛程更新</a>
+        <a class="btn btn-ghost" href="/#deep">读赛制解析</a>
+      </div>
+      <div class="hero-facts">
+        <div><b>12</b>条今日赛事情报</div>
+        <div><b>9</b>个在办赛道</div>
+        <div><b>46</b>支队伍资料已收录</div>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 360 320" role="img" aria-label="赛事信号与计分示意构图">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f5b13d" stop-opacity=".9"/>
+            <stop offset="1" stop-color="#f5b13d" stop-opacity=".25"/>
+          </linearGradient>
+        </defs>
+        <circle cx="180" cy="160" r="118" fill="none" stroke="#2c5580" stroke-width="1.5"/>
+        <circle cx="180" cy="160" r="88" fill="none" stroke="#2c5580" stroke-width="1.5" stroke-dasharray="4 7"/>
+        <circle cx="180" cy="160" r="58" fill="none" stroke="#3a6a99" stroke-width="1.5"/>
+        <path d="M62 214 L120 130 L168 190 L214 106 L292 200" fill="none" stroke="url(#g1)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="214" cy="106" r="8" fill="#f5b13d"/>
+        <rect x="52" y="44" width="110" height="26" rx="6" fill="#14395c"/>
+        <rect x="62" y="52" width="52" height="9" rx="4" fill="#f5b13d" opacity=".8"/>
+        <rect x="212" y="240" width="100" height="26" rx="6" fill="#14395c"/>
+        <rect x="222" y="248" width="60" height="9" rx="4" fill="#7fa7c9" opacity=".85"/>
+        <g stroke="#3a6a99" stroke-width="1.5">
+          <line x1="180" y1="30" x2="180" y2="58"/>
+          <line x1="180" y1="262" x2="180" y2="290"/>
+          <line x1="50" y1="160" x2="78" y2="160"/>
+          <line x1="282" y1="160" x2="310" y2="160"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<div class="wrap layout">
+<main>
+
+  <!-- 1. 领域概览 -->
+  <section class="block" id="overview" aria-labelledby="h-overview">
+    <div class="sec-head">
+      <h2 id="h-overview">赛事情报概览</h2>
+      <span class="sub">截至11月8日 09:30 的在办赛事口径</span>
+    </div>
+    <div class="overview-panel">
+      <div class="ov-cell">
+        <div class="ov-num">9<small>个赛道在办</small></div>
+        <h3>电竞赛与算法赛占比过半</h3>
+        <p>本周可报名赛项中，电竞赛4个、算法与数据赛3个、写作与设计赛各1个。线上初赛多采用“提交即判”的自动评测。</p>
+      </div>
+      <div class="ov-cell">
+        <div class="ov-num">11/6<small>最近一次规则调整</small></div>
+        <h3>辩论联赛换人名额收紧</h3>
+        <p>“城市杯”高校辩论联赛复赛起每队替补由2人改为1人，组委会在11月6日公示的秩序册第4页写明，替换需提前24小时报备。</p>
+      </div>
+      <div class="ov-cell">
+        <div class="ov-num">3<small>场赛果待复核</small></div>
+        <h3>提交记录与榜单存在时间差</h3>
+        <p>算法赛“星轨杯”第三轮榜单11月7日22:10更新，与选手本地评测结果差12分钟，官方称是重跑校验所致，最终名次以11月9日复核结果为准。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 精选内容推荐 -->
+  <section class="block" id="picks" aria-labelledby="h-picks">
+    <div class="sec-head">
+      <h2 id="h-picks">本周精选赛题与爆料</h2>
+      <span class="sub">编辑按信息密度挑选</span>
+      <a class="more" href="/#channels">按赛道浏览</a>
+    </div>
+    <div class="card-grid">
+      <article class="card">
+        <img src="https://picsum.photos/seed/saishi-jingxuan-01/640/360" width="640" height="360" loading="lazy" alt="算法赛选手在机房调试代码的现场照片">
+        <div class="body">
+          <span class="tag">算法赛</span>
+          <h3>星轨杯算法挑战赛第三轮题解思路</h3>
+          <p>第三题把图论最短路改成带时间窗的约束，14支队伍在11月7日22点前提交，只有5支通过全部测试点。</p>
+          <div class="meta"><span>11月7日 22:40</span><span>阅读 1.2k</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://picsum.photos/seed/saishi-jingxuan-02/640/360" width="640" height="360" loading="lazy" alt="高校辩论赛现场双方辩手对坐的照片">
+        <div class="body">
+          <span class="tag">辩论赛</span>
+          <h3>城市杯高校辩论联赛复赛对阵拆解</h3>
+          <p>八强席位将在11月9日决出，正方立场集中在“数据开放优先”，反方多打“隐私成本”牌，立论结构差别明显。</p>
+          <div class="meta"><span>11月6日 18:20</span><span>阅读 980</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://picsum.photos/seed/saishi-jingxuan-03/640/360" width="640" height="360" loading="lazy" alt="电竞赛选手在比赛席佩戴耳机的近景照片">
+        <div class="body">
+          <span class="tag">电竞赛</span>
+          <h3>“东岸杯”小组赛第二日赛果与换人风波</h3>
+          <p>B组“夜航队”11月7日比赛中途换下打野，赛会记录写“设备故障”，俱乐部公告写“状态调整”，两处说法未对齐。</p>
+          <div class="meta"><span>11月7日 23:05</span><span>阅读 2.4k</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <img src="https://picsum.photos/seed/saishi-jingxuan-04/640/360" width="640" height="360" loading="lazy" alt="写作赛评委在桌前翻阅打印稿的照片">
+        <div class="body">
+          <span class="tag">写作赛</span>
+          <h3>短篇写作赛“冬令营”初审入围名单解读</h3>
+          <p>320篇来稿中入围60篇，11月5日公布的名单里有17篇写城市改造题材，评委组在说明里提到“同质化明显”。</p>
+          <div class="meta"><span>11月5日 15:00</span><span>阅读 720</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. 最新更新 -->
+  <section class="block" id="updates" aria-labelledby="h-updates">
+    <div class="sec-head">
+      <h2 id="h-updates">最新赛事动态</h2>
+      <span class="sub">按发布时间倒序</span>
+    </div>
+    <ol class="timeline">
+      <li>
+        <time datetime="2026-11-08">11月8日 08:50</time>
+        <div class="t-title">全国大学生电子设计赛省赛拟题推迟</div>
+        <p>原定11月8日9时发布的省赛拟题推迟至11月10日，赛事组委会在报名系统站内信写明“命题组需二次核对器件清单”，未提及是否顺延提交截止时间。</p>
+      </li>
+      <li>
+        <time datetime="2026-11-07">11月7日 21:15</time>
+        <div class="t-title">星轨杯第三轮榜单与本地评测差12分钟</div>
+        <p>选手提交记录显示22:10出分，官方榜单22:22刷新。组委会解释为重跑校验，11月9日给出最终名次，第三轮不计入总积分。</p>
+      </li>
+      <li>
+        <time datetime="2026-11-07">11月7日 16:40</time>
+        <div class="t-title">东岸杯B组夜航队中途换人</div>
+        <p>赛事记录标注“设备故障”，俱乐部微博写“状态调整”，两边均未公布选手医疗信息，赛会表示将在11月10日例行通报中补充说明。</p>
+      </li>
+      <li>
+        <time datetime="2026-11-05">11月5日 14:30</time>
+        <div class="t-title">冬令营短篇写作赛初审名单公示</div>
+        <p>入围60篇，公示期至11月12日。评委说明中提到“城市改造题材17篇”，并写明复评将增加盲评环节。</p>
+      </li>
+      <li>
+        <time datetime="2026-11-03">11月3日 10:00</time>
+        <div class="t-title">城市杯高校辩论联赛复赛抽签完成</div>
+        <p>8支队伍分4组对垒，抽签视频存档于赛事官网“赛务公开”栏目，11月9日开赛，场地为大学城第二报告厅。</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 4. 分类入口 -->
+  <section class="block" id="channels" aria-labelledby="h-channels">
+    <div class="sec-head">
+      <h2 id="h-channels">赛道分类入口</h2>
+      <span class="sub">按比赛类型与参赛门槛分组</span>
+    </div>
+    <div class="tag-index">
+      <a href="/#picks">电竞赛小组赛 <span>4</span></a>
+      <a href="/#picks">算法与数据赛 <span>3</span></a>
+      <a href="/#picks">高校辩论联赛 <span>1</span></a>
+      <a href="/#picks">短篇写作赛 <span>1</span></a>
+      <a href="/#picks">平面设计赛 <span>1</span></a>
+      <a href="/#deep">赛制规则解读 <span>6</span></a>
+      <a href="/#guide">参赛报名流程 <span>5</span></a>
+      <a href="/#rank">战队实力榜 <span>1</span></a>
+      <a href="/#faq">赛事常见疑问 <span>8</span></a>
+      <a href="/#news">赛果与公告 <span>12</span></a>
+      <a href="/#comments">选手与观众评论 <span>6</span></a>
+    </div>
+  </section>
+
+  <!-- 5. 深度解析 -->
+  <section class="block" id="deep" aria-labelledby="h-deep">
+    <div class="sec-head">
+      <h2 id="h-deep">赛制深度解析</h2>
+      <span class="sub">可核对的中段材料，欢迎反驳</span>
+    </div>
+    <article class="deep">
+      <p class="deep-lead">判断：把“提交次数”写进积分公式的算法赛，参赛者实际在和时间赛跑，而不是和题目赛跑。星轨杯第三轮就是例子：8次提交上限让第5次之后的操作变成风险管理。</p>
+
+      <h3>提交上限与积分损失的具体对照</h3>
+      <div class="checkline">
+        <strong>可核对结构 · 星轨杯第三轮排行榜前五（截至11月7日22:22）</strong>
+        <table>
+          <thead><tr><th>名次</th><th>队伍</th><th>通过题数</th><th>提交次数</th><th>罚时（分钟）</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>河西小分队</td><td>5</td><td>7</td><td>34</td></tr>
+            <tr><td>2</td><td>折线图</td><td>5</td><td>8</td><td>41</td></tr>
+            <tr><td>3</td><td>凌晨四点</td><td>4</td><td>6</td><td>22</td></tr>
+            <tr><td>4</td><td>无限不循环</td><td>4</td><td>8</td><td>48</td></tr>
+            <tr><td>5</td><td>北纬31度</td><td>4</td><td>8</td><td>53</td></tr>
+          </tbody>
+        </table>
+        <p style="margin:8px 0 0;font-size:12px;color:var(--c-ink-3);">数据来源：星轨杯赛事平台公开榜单，11月7日22:22快照。第2、4、5名提交次数均为上限8次。</p>
+      </div>
+      <p>河西小分队只用了7次提交却排第一，原因是第五题的最后一次提交在22:01完成，判题队列没有排队。同题的第2名在22:04提交，队列积压4分钟，罚时直接翻倍。这类差距和代码质量关系不大，和提交时刻强相关。</p>
+
+      <h3>规则前后变化：换人名额从2人改成1人</h3>
+      <p>城市杯高校辩论联赛的秩序册有两个版本。10月28日发布的第2版写明“每队替补2人，出场前30分钟报备”；11月6日第4版改成“替补1人，提前24小时报备”。多出来的24小时意味着临场救急的通道被关掉了。以“南岸联队”为例，原计划替补二辩在11月9日上午补位，按新规已来不及报备，只能换回原阵容。</p>
+      <p>组委会工作人员在11月6日的赛务答疑群里说，收紧是因为复赛场地座位有限。这个理由可以被反驳：座位与替补申报没有直接关系，更可能是管理成本的考虑。事实只到“规则改了”，原因属于转述，不能当成定论。</p>
+
+      <h3>设备故障 vs 状态调整：同一事件的两套说法</h3>
+      <p>东岸杯B组夜航队换人事件里，赛会记录写的是“设备故障，经裁判确认”，俱乐部公告写的是“状态调整，选手主动申请”。两种措辞指向不同责任：前者算赛事方保障问题，后者算队伍内部决定。目前没有第三方信息源，赛会承诺的11月10日例行通报是唯一可等的新材料。把这条当“已经查清”是过早的。</p>
+
+      <div class="cols">
+        <p>写作赛的评审口径也有类似问题。冬令营初审说明里写“题材同质化明显”，但没有公布评分表。60篇入围作品中有17篇写城市改造，这个数字能确认，但“同质化导致落选”只是推测。</p>
+        <p>评委组11月5日的公示附了复评安排：增加盲评，每篇由三位评委独立打分，取中位数。这个机制能降低单评委偏好，但对题材集中的问题没有直接作用。</p>
+      </div>
+    </article>
+  </section>
+
+  <!-- 6. 体验指南 -->
+  <section class="block" id="guide" aria-labelledby="h-guide">
+    <div class="sec-head">
+      <h2 id="h-guide">参赛准备指南</h2>
+      <span class="sub">按报名到提交的顺序整理</span>
+    </div>
+    <ol class="steps">
+      <li>
+        <h3>先核对报名系统站内信</h3>
+        <p>赛程变动多数只发站内信，不额外发短信。电子设计赛省赛拟题推迟的消息就只出现在报名系统，11月8日9时前查收最稳妥。</p>
+      </li>
+      <li>
+        <h3>把秩序册版本号记下来</h3>
+        <p>辩论联赛秩序册已出到第4版，替补规则两版不同。下载后看页脚版本号，遇到争议以最新版本为准。</p>
+      </li>
+      <li>
+        <h3>提前测试判题队列延迟</h3>
+        <p>星轨杯第三轮出现过12分钟的出分差。开赛前用练习题测一次提交到出分的耗时，把最后提交时间往前推15分钟。</p>
+      </li>
+      <li>
+        <h3>保留设备与网络记录</h3>
+        <p>东岸杯的换人争议里，赛会记录和俱乐部公告不一致。选手自备的录屏、路由日志在申诉时比口头说明有用。</p>
+      </li>
+      <li>
+        <h3>关注公示期而非只看出结果</h3>
+        <p>冬令营初审名单公示到11月12日，对入围结果有异议可在公示期内提交材料，过期不再受理。</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="block faq" id="faq" aria-labelledby="h-faq">
+    <div class="sec-head">
+      <h2 id="h-faq">赛事常见疑问</h2>
+      <span class="sub">按提问频率排序</span>
+    </div>
+    <details>
+      <summary>电子设计赛省赛拟题推迟，提交截止时间会顺延吗？</summary>
+      <div class="ans">截至11月8日9时30分，组委会只发布了拟题推迟到11月10日的通知，没有提到提交截止时间变更。参赛队应按原截止时间准备，同时在11月9日再查一次报名系统站内信。</div>
+    </details>
+    <details>
+      <summary>星轨杯第三轮的名次算不算总积分？</summary>
+      <div class="ans">组委会11月7日答复称第三轮为重跑校验轮次，不计入总积分，最终名次11月9日公布。前两轮积分仍然有效，排行榜上的第三轮数据仅作参考。</div>
+    </details>
+    <details>
+      <summary>城市杯辩论联赛复赛替补还能临时换吗？</summary>
+      <div class="ans">复赛起每队替补1人，替换需提前24小时报备。11月9日开赛的队伍，最晚11月8日完成报备，赛前30分钟口头申请不再受理。</div>
+    </details>
+    <details>
+      <summary>夜航队换人到底是设备问题还是选手状态问题？</summary>
+      <div class="ans">两种说法同时存在：赛事记录写“设备故障”，俱乐部公告写“状态调整”。目前没有第三方材料，赛会承诺11月10日例行通报补充，结论需等那份通报。</div>
+    </details>
+    <details>
+      <summary>冬令营写作赛落选作品能申请评分反馈吗？</summary>
+      <div class="ans">初审阶段不提供逐篇评分反馈。公示期内可对程序性问题（如字数统计、提交格式）提出申诉，题材与文风的评价不在申诉范围内。</div>
+    </details>
+    <details>
+      <summary>算法赛提交次数满了还能再交吗？</summary>
+      <div class="ans">星轨杯单轮上限8次，用满后不能追加。罚时按最后一次有效提交计算，因此第8次提交要留给最有把握的版本。</div>
+    </details>
+  </section>
+
+  <!-- 8. 用户评论 -->
+  <section class="block" id="comments" aria-labelledby="h-comments">
+    <div class="sec-head">
+      <h2 id="h-comments">选手与观众评论</h2>
+      <span class="sub">来自赛事群与公开评论区的节选</span>
+    </div>
+    <div class="comments">
+      <div class="comment">
+        <div class="who"><span class="avatar">折</span><b>折线图</b> · 星轨杯参赛选手 · 11月8日 00:12</div>
+        <p>第五题22:04提交被判罚时翻倍，队列那4分钟不是我们能控制的。榜单22:22才刷新，中间这段时间完全不知道排第几。</p>
+      </div>
+      <div class="comment">
+        <div class="who"><span class="avatar">南</span><b>南岸联队二辩</b> · 11月7日 20:31</div>
+        <p>替补报备提前到24小时，等于把临场调整全堵死了。我们队替补是提前一周定的，但别的队未必，这条改得有点突然。</p>
+      </div>
+      <div class="comment">
+        <div class="who"><span class="avatar">路</span><b>路人观众_0726</b> · 11月7日 18:05</div>
+        <p>东岸杯那个换人，赛会写设备故障、俱乐部写状态调整，两个说法放一起看挺怪的。等10号通报。</p>
+      </div>
+      <div class="comment">
+        <div class="who"><span class="avatar">河</span><b>河西小分队队长</b> · 11月7日 23:40</div>
+        <p>7次提交排第一确实有运气成分，第五题我们最后一版改了两行判断，赶在22:01交上去，纯属时间卡得准。</p>
+      </div>
+      <div class="comment">
+        <div class="who"><span class="avatar">文</span><b>写小说的阿禾</b> · 11月6日 09:17</div>
+        <p>冬令营入围60篇里17篇写城市改造，这个比例说明命题方向引导得太明显了。盲评是好改动，但题材集中不是盲评能解决的。</p>
+      </div>
+      <div class="comment">
+        <div class="who"><span class="avatar">计</span><b>计科三年级老周</b> · 11月5日 21:44</div>
+        <p>电子设计赛拟题推迟对我们是好事，器件清单里那款运放这周才到货。不过截止时间没顺延，准备时间实际少了两天。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 相关资讯 -->
+  <section class="block" id="news" aria-labelledby="h-news">
+    <div class="sec-head">
+      <h2 id="h-news">赛果与公告</h2>
+      <span class="sub">标注来源与发布时间</span>
+    </div>
+    <ul class="news-list">
+      <li><time datetime="2026-11-08">11-08</time><a class="nt" href="/#updates">电子设计赛省赛拟题推迟到11月10日，报名系统已发站内信</a><span class="src">赛事组委会</span></li>
+      <li><time datetime="2026-11-07">11-07</time><a class="nt" href="/#deep">星轨杯第三轮榜单22:22刷新，官方称重跑校验不计积分</a><span class="src">星轨杯平台</span></li>
+      <li><time datetime="2026-11-07">11-07</time><a class="nt" href="/#picks">东岸杯B组夜航队中途换人，赛事记录与俱乐部说法不一</a><span class="src">赛事记录页</span></li>
+      <li><time datetime="2026-11-06">11-06</time><a class="nt" href="/#faq">城市杯辩论联赛第4版秩序册发布，替补名额改为1人</a><span class="src">赛务公开栏目</span></li>
+      <li><time datetime="2026-11-05">11-05</time><a class="nt" href="/#comments">冬令营短篇写作赛初审名单公示，入围60篇公示至11月12日</a><span class="src">评委组公示</span></li>
+      <li><time datetime="2026-11-03">11-03</time><a class="nt" href="/#channels">城市杯复赛抽签完成，8队分4组11月9日开赛</a><span class="src">赛事官网</span></li>
+    </ul>
+  </section>
+
+  <!-- 10. 补充：榜单 -->
+  <section class="block" id="rank" aria-labelledby="h-rank">
+    <div class="sec-head">
+      <h2 id="h-rank">本周战队实力榜</h2>
+      <span class="sub">依据公开赛果与对手强度折算</span>
+    </div>
+    <ol class="rank">
+      <li><span class="rk-name">河西小分队</span><span class="rk-desc">星轨杯第三轮第1，两轮累计通过9题</span><span class="rk-score">86.4</span></li>
+      <li><span class="rk-name">折线图</span><span class="rk-desc">星轨杯第三轮第2，罚时偏高的强队</span><span class="rk-score">83.1</span></li>
+      <li><span class="rk-name">夜航队</span><span class="rk-desc">东岸杯B组2胜1负，换人事件待澄清</span><span class="rk-score">79.5</span></li>
+      <li><span class="rk-name">凌晨四点</span><span class="rk-desc">星轨杯第三轮第3，提交次数最少</span><span class="rk-score">77.8</span></li>
+      <li><span class="rk-name">南岸联队</span><span class="rk-desc">辩论联赛小组头名出线，替补名额受限</span><span class="rk-score">74.2</span></li>
+    </ol>
+  </section>
+
+  <!-- 11. 相关推荐 -->
+  <section class="block" id="related" aria-labelledby="h-related">
+    <div class="sec-head">
+      <h2 id="h-related">相关推荐</h2>
+      <span class="sub">按赛道与赛程节点关联</span>
+    </div>
+    <div class="tag-index">
+      <a href="/#deep">星轨杯提交次数与罚时规则</a>
+      <a href="/#deep">城市杯辩论联赛秩序册版本差异</a>
+      <a href="/#guide">电子设计赛器件清单核对方法</a>
+      <a href="/#comments">东岸杯换人事件两种说法对照</a>
+      <a href="/#faq">冬令营写作赛公示期申诉流程</a>
+      <a href="/#rank">本周战队实力榜折算口径</a>
+      <a href="/#updates">11月赛事日历与报名截止日</a>
+    </div>
+  </section>
+
+  <!-- 12. 图文条目 -->
+  <section class="block" id="field" aria-labelledby="h-field">
+    <div class="sec-head">
+      <h2 id="h-field">赛场现场记录</h2>
+      <span class="sub">赛事方公开画面与场地信息</span>
+    </div>
+    <article class="media-item">
+      <img src="https://picsum.photos/seed/saishi-xianchang-11/360/280" width="360" height="280" loading="lazy" alt="大学城第二报告厅辩论赛场地布置照片">
+      <div class="body">
+        <h3>辩论联赛复赛场地：大学城第二报告厅</h3>
+        <p>可容纳约180人，11月9日两场比赛分别排在9时与14时。场地提供固定麦克风，不提供无线耳返，队伍自备计时设备需提前报备。</p>
+        <p style="color:var(--c-ink-3);font-size:12px;margin:0;">信息核对：赛事官网场地说明页，11月3日更新。</p>
+      </div>
+    </article>
+  </section>
+
+</main>
+
+<aside class="side" aria-label="侧栏">
+  <div class="side-card side-nav">
+    <h2>栏目导航</h2>
+    <ul id="sideNav">
+      <li><a href="/#overview">赛事情报概览</a></li>
+      <li><a href="/#picks">本周精选赛题与爆料</a></li>
+      <li><a href="/#updates">最新赛事动态</a></li>
+      <li><a href="/#channels">赛道分类入口</a></li>
+      <li><a href="/#deep">赛制深度解析</a></li>
+      <li><a href="/#guide">参赛准备指南</a></li>
+      <li><a href="/#faq">赛事常见疑问</a></li>
+      <li><a href="/#comments">选手与观众评论</a></li>
+      <li><a href="/#news">赛果与公告</a></li>
+      <li><a href="/#rank">本周战队实力榜</a></li>
+    </ul>
+  </div>
+  <div class="side-card">
+    <h2>今日待办节点</h2>
+    <ul class="mini-list">
+      <li><a href="/#updates">11月8日 24:00 城市杯替补报备截止</a><span class="m-meta">影响11月9日复赛阵容</span></li>
+      <li><a href="/#updates">11月9日 09:00 辩论联赛复赛开赛</a><span class="m-meta">大学城第二报告厅</span></li>
+      <li><a href="/#updates">11月9日 星轨杯第三轮最终名次公布</a><span class="m-meta">不计总积分</span></li>
+      <li><a href="/#updates">11月10日 电子设计赛省赛拟题发布</a><span class="m-meta">报名系统站内信</span></li>
+      <li><a href="/#updates">11月12日 冬令营初审公示期结束</a><span class="m-meta">申诉材料截止</span></li>
+    </ul>
+  </div>
+  <div class="side-card">
+    <h2>信息说明</h2>
+    <p class="side-note">页面中的参赛队、选手昵称、赛果与时间为<strong>示例数据</strong>，用于展示赛事情报的组织方式；规则条目以组委会公开秩序册版本为准。遇到名次与公告冲突时，先核对发布时间与版本号。</p>
+  </div>
+</aside>
+</div>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="bf">
+          <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="14" fill="#1b4a76"/>
+            <path d="M14 42 L26 22 L34 34 L42 18 L52 42" fill="none" stroke="#f5b13d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>每日大赛 聚集地爆料</span>
+        </div>
+        <p>把赛程、规则改动和选手动向放在一条时间线上，方便参赛队在截止日前做核对。</p>
+      </div>
+      <div>
+        <h3>赛道频道</h3>
+        <ul>
+          <li><a href="/#channels">电竞赛小组赛</a></li>
+          <li><a href="/#channels">算法与数据赛</a></li>
+          <li><a href="/#channels">高校辩论联赛</a></li>
+          <li><a href="/#channels">短篇写作赛</a></li>
+          <li><a href="/#channels">平面设计赛</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>备赛参考</h3>
+        <ul>
+          <li><a href="/#deep">赛制深度解析</a></li>
+          <li><a href="/#guide">参赛准备指南</a></li>
+          <li><a href="/#faq">赛事常见疑问</a></li>
+          <li><a href="/#rank">本周战队实力榜</a></li>
+          <li><a href="/#news">赛果与公告</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>更新与说明</h3>
+        <ul>
+          <li>页面更新时间：2026年11月8日</li>
+          <li>对应更新项：省赛拟题推迟、星轨杯榜单复核、复赛替补规则</li>
+          <li>内容性质：示例赛事数据</li>
+          <li><a href="/#overview">查看情报口径说明</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 每日大赛 聚集地爆料 · 页面内容为示例，不代表真实赛事公告</span>
+      <span>信息以组委会公开文件为准</span>
+    </div>
+  </div>
+</footer>
+
+<button class="to-top" id="toTop" aria-label="回到页面顶部">↑</button>
+
+<script>
+(function(){
+  var menuBtn = document.getElementById('menuBtn');
+  var themeNav = document.getElementById('themeNav');
+  if(menuBtn && themeNav){
+    menuBtn.addEventListener('click', function(){
+      var open = themeNav.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    themeNav.addEventListener('click', function(e){
+      if(e.target.tagName === 'A' && window.innerWidth <= 720){
+        themeNav.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded','false');
+      }
+    });
+  }
+
+  var toTop = document.getElementById('toTop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 500){ toTop.classList.add('show'); }
+    else { toTop.classList.remove('show'); }
+  }, {passive:true});
+  toTop.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section.block[id]'));
+  var sideLinks = Array.prototype.slice.call(document.querySelectorAll('#sideNav a'));
+  function highlight(){
+    var pos = window.scrollY + 160;
+    var current = null;
+    sections.forEach(function(s){
+      if(s.offsetTop <= pos) current = s.id;
+    });
+    sideLinks.forEach(function(a){
+      var href = a.getAttribute('href').replace('/#','');
+      if(href === current){ a.classList.add('active'); }
+      else { a.classList.remove('active'); }
+    });
+  }
+  window.addEventListener('scroll', highlight, {passive:true});
+  highlight();
+
+  var input = document.getElementById('siteSearch');
+  var status = document.getElementById('searchStatus');
+  var sBtn = document.getElementById('searchBtn');
+  var searchable = Array.prototype.slice.call(document.querySelectorAll('main h2, main h3, main p, main li, .comment p'));
+
+  function runSearch(){
+    var q = input.value.trim();
+    if(!q){ status.classList.remove('show'); status.textContent=''; return; }
+    var hits = [];
+    searchable.forEach(function(el){
+      var txt = el.textContent;
+      if(txt.indexOf(q) !== -1){
+        hits.push(txt.length > 46 ? txt.slice(0,46) + '…' : txt);
+      }
+    });
+    status.classList.add('show');
+    if(hits.length === 0){
+      status.innerHTML = '页面内没有找到“<mark>' + escapeHtml(q) + '</mark>”。可换用赛道名或队名，例如“星轨杯”“辩论联赛”。';
+    } else {
+      var uniq = hits.slice(0,5).map(function(t){ return '<div style="margin-top:4px;">· ' + escapeHtml(t) + '</div>'; }).join('');
+      status.innerHTML = '共找到 <b>' + hits.length + '</b> 处匹配：' + uniq;
+    }
+  }
+  function escapeHtml(s){
+    return s.replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  sBtn.addEventListener('click', runSearch);
+  input.addEventListener('keydown', function(e){
+    if(e.key === 'Enter'){ e.preventDefault(); runSearch(); }
+  });
+  input.addEventListener('input', function(){
+    if(input.value.trim() === ''){ status.classList.remove('show'); status.textContent=''; }
+  });
+  document.addEventListener('click', function(e){
+    if(!e.target.closest('.search-box')){ status.classList.remove('show'); }
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"每日大赛 聚集地爆料",
+  "description":"汇总线上线下赛事的报名节点、赛制变化与选手动态，覆盖电竞赛、写作赛、设计赛与辩论赛。",
+  "inLanguage":"zh-CN"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"电子设计赛省赛拟题推迟，提交截止时间会顺延吗？","acceptedAnswer":{"@type":"Answer","text":"截至11月8日9时30分，组委会只发布了拟题推迟到11月10日的通知，没有提到提交截止时间变更。"}},
+    {"@type":"Question","name":"星轨杯第三轮的名次算不算总积分？","acceptedAnswer":{"@type":"Answer","text":"组委会11月7日答复称第三轮为重跑校验轮次，不计入总积分，最终名次11月9日公布。"}},
+    {"@type":"Question","name":"城市杯辩论联赛复赛替补还能临时换吗？","acceptedAnswer":{"@type":"Answer","text":"复赛起每队替补1人，替换需提前24小时报备，赛前30分钟口头申请不再受理。"}},
+    {"@type":"Question","name":"夜航队换人到底是设备问题还是选手状态问题？","acceptedAnswer":{"@type":"Answer","text":"赛事记录写设备故障，俱乐部公告写状态调整，目前没有第三方材料，需等11月10日赛会例行通报。"}},
+    {"@type":"Question","name":"冬令营写作赛落选作品能申请评分反馈吗？","acceptedAnswer":{"@type":"Answer","text":"初审阶段不提供逐篇评分反馈，公示期内仅受理程序性问题申诉，题材与文风评价不在申诉范围。"}}
+  ]
+}
+</script>
+</body>
+                                                                                         </html>
